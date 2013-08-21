@@ -28,6 +28,7 @@ class Person(models.Model):
     rank = models.ForeignKey(Rank)
 
     def __unicode__(self):
-        return '{0} {1} {2}'.format(self.skill_level,
-                                    self.rank,
-                                    self.person_name)
+        return '{0} {1} {2} {3}'.format(self.skill_level,
+                                        self.position,
+                                        self.rank,
+                                        self.person_name)
