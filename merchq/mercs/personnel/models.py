@@ -1,4 +1,5 @@
 from django.db import models
+import mercs.forces.models
 
 class Position(models.Model):
     position_name = models.CharField(max_length = 100)
@@ -26,6 +27,9 @@ class Person(models.Model):
     position = models.ForeignKey(Position)
     skill_level = models.ForeignKey(SkillLevel)
     rank = models.ForeignKey(Rank)
+    force = models.ForeignKey(mercs.forces.models.Force,
+                              null = True,
+                              blank = True)
 
     def __unicode__(self):
         return '{0} {1} {2} {3}'.format(self.skill_level,
