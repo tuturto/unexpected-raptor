@@ -31,6 +31,11 @@ class Person(models.Model):
                               null = True,
                               blank = True)
 
+    def get_salary(self):
+        return (self.position.base_salary *
+                self.rank.salary_multiplier *
+                self.skill_level.salary_multiplier)
+    
     def __unicode__(self):
         return '{0} {1} {2} {3}'.format(self.skill_level,
                                         self.position,
