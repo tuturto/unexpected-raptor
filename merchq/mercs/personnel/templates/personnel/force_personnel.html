@@ -1,0 +1,22 @@
+<table>
+
+{% for position in positions %}
+
+<tr>
+  <td>{{ position.position_name }}</td>
+</tr>
+
+  {% for person in force_personnel %}
+
+    {% if person.position == position %}
+      <tr>
+        <td></td><td>{{ person.person_name }}</td>
+      </tr>
+    {% endif %}
+
+  {% endfor %}
+
+{% endfor %}
+
+</table>
+

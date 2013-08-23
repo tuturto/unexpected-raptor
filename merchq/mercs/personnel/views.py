@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.db.models import Count
 from django.shortcuts import render
 
-from mercs.personnel.models import Person
+from mercs.personnel.models import Person, Position
 from mercs.forces.models import Force
 
 def index(request):
@@ -12,7 +12,15 @@ def index(request):
     return render(request, 'personnel/index.html', context)
 
 def force_personnel(request, force_id):
-    return HttpResponse("Hello, world. You're seeing a force")
+    force = Force.objects.get(id=force_id)
+    people = force.person_set.all()
+    positions = Position.objects.all()
+    
+    context = {'force': force,
+               'force_personnel': people,
+               'positions': positions}
+
+    return render(request, 'personnel/force_personnel.html', context)
 
 def person_details(request, person_id):
 	return HttpResponse("Hello, world. You're seeing a person")
