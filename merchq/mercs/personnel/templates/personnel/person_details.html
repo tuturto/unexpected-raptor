@@ -1,17 +1,35 @@
 <table>
 <tr>
-  <th>Name</th>
-  <th>Position</th>
-  <th>Skill level</th>
-  <th>Rank</th>
-  <th>Salary</th>
+  <th></th>
+  <th></th>
 </tr>
 
 <tr>
+  <td>Name:</td>
   <td>{{ person.person_name }}</td>
+</tr>
+<tr>
+  <td>Position:</td>
   <td>{{ person.position }}</td>
+</tr>
+<tr>
+  <td>Skill level:</td>
   <td>{{ person.skill_level }}</td>
+</tr>
+
+{% for skill in person.skill_set.all %}
+  <tr>
+    <td>{{ skill.skill_definition.skill_name }}</td>
+    <td>{{ skill.skill_score }}</td>
+  </tr>
+{% endfor %}
+
+<tr>
+  <td>Rank:</td>
   <td>{{ person.rank }}</td>
+</tr>
+<tr>
+  <td>Salary:</td>
   <td>{{ person.get_salary }}</td>
 </tr>
 

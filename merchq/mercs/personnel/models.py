@@ -8,6 +8,12 @@ class Position(models.Model):
     def __unicode__(self):
         return self.position_name
 
+class SkillDefinition(models.Model):
+    skill_name = models.CharField(max_length = 50)
+
+    def __unicode__(self):
+        return self.skill_name
+
 class SkillLevel(models.Model):
     level_name = models.CharField(max_length = 25)
     salary_multiplier = models.FloatField(default = 1.0)
@@ -26,12 +32,6 @@ class Person(models.Model):
     person_name = models.CharField(max_length = 100)
     position = models.ForeignKey(Position)
     skill_level = models.ForeignKey(SkillLevel)
-    piloting_skill = models.IntegerField(default = None,
-                                         null = True,
-                                         blank = True)
-    gunnery_skill = models.IntegerField(default = None,
-                                        null = True,
-                                        blank = True)
     rank = models.ForeignKey(Rank)    
     force = models.ForeignKey(mercs.forces.models.Force,
                               null = True,
@@ -47,3 +47,13 @@ class Person(models.Model):
                                         self.position,
                                         self.rank,
                                         self.person_name)
+
+class Skill(models.Model):
+    skill_definition = models.ForeignKey(SkillDefinition)
+    person = models.ForeignKey(Person)
+    skill_score = models.IntegerField(default = 0)
+
+    def __unicode__(self):
+        return '{0}-{1}: {2}'.format(self.person.person_name,
+                                     self.skill_definition,
+                                     self.skill_score)

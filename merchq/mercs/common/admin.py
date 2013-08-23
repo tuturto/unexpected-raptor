@@ -1,4 +1,4 @@
 from django.contrib import admin
-from mercs.common.models import Time
+from mercs.common.models import Parameter
 
-admin.site.register(Time)
+admin.site.register(Parameter)
