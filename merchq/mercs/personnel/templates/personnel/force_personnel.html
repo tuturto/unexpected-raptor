@@ -1,4 +1,4 @@
-<table>
+<table cellpadding="4">
 <tr>
   <th>Position</th>
   <th>Name</th>  
@@ -11,6 +11,10 @@
 
   <tr>
     <td>{{ entry.0 }}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
 
   {% for person in entry.1 %}
@@ -24,7 +28,18 @@
 
   {% endfor %}
 
+  <tr>
+    <td colspan="3"></td>
+    <td>Sub-Total</td>
+    <td>{{ entry.2 }}</td>
+  </tr>
+
 {% endfor %}
 
-</table>
+  <tr>
+    <td colspan="3"></td>
+    <td>Total</td>
+    <td>{{ total_salary }}</td>
+  </tr>
 
+</table>

@@ -26,7 +26,13 @@ class Person(models.Model):
     person_name = models.CharField(max_length = 100)
     position = models.ForeignKey(Position)
     skill_level = models.ForeignKey(SkillLevel)
-    rank = models.ForeignKey(Rank)
+    piloting_skill = models.IntegerField(default = None,
+                                         null = True,
+                                         blank = True)
+    gunnery_skill = models.IntegerField(default = None,
+                                        null = True,
+                                        blank = True)
+    rank = models.ForeignKey(Rank)    
     force = models.ForeignKey(mercs.forces.models.Force,
                               null = True,
                               blank = True)

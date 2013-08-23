@@ -13,18 +13,24 @@ def index(request):
 
 def force_personnel(request, force_id):
     force = get_object_or_404(Force, id=force_id)
-    people = force.person_set.all().order_by('position')
+    people = force.person_set.all().order_by('position', 'person_name')
     positions = Position.objects.all().order_by('position_name')
+    total_salary = sum([person.get_salary() for person
+                        in people])
 
     pos_data = []
 
     for position in positions:
         matching_people = [person for person in people
                            if person.position == position]
-        pos_data.append([position, matching_people])
+        pos_data.append([position,
+                         matching_people,
+                         sum([person.get_salary() for person
+                              in matching_people])])
    
     context = {'force': force,
-               'force_personnel': pos_data}
+               'force_personnel': pos_data,
+               'total_salary': total_salary}
 
     return render(request, 'personnel/force_personnel.html', context)
 
