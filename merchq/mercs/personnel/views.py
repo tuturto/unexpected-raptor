@@ -13,12 +13,18 @@ def index(request):
 
 def force_personnel(request, force_id):
     force = Force.objects.get(id=force_id)
-    people = force.person_set.all()
-    positions = Position.objects.all()
-    
+    people = force.person_set.all().order_by('position')
+    positions = Position.objects.all().order_by('position_name')
+
+    pos_data = []
+
+    for position in positions:
+        matching_people = [person for person in people
+                           if person.position == position]
+        pos_data.append([position, matching_people])
+   
     context = {'force': force,
-               'force_personnel': people,
-               'positions': positions}
+               'force_personnel': pos_data}
 
     return render(request, 'personnel/force_personnel.html', context)
 

@@ -1,18 +1,24 @@
 <table>
-
-{% for position in positions %}
-
 <tr>
-  <td>{{ position.position_name }}</td>
+  <th>Position</th>
+  <th>Name</th>  
+  <th>Skill level</th>
+  <th>Rank</th>
 </tr>
 
-  {% for person in force_personnel %}
+{% for entry in force_personnel %}
 
-    {% if person.position == position %}
-      <tr>
-        <td></td><td>{{ person.person_name }}</td>
-      </tr>
-    {% endif %}
+  <tr>
+    <td>{{ entry.0 }}</td>
+  </tr>
+
+  {% for person in entry.1 %}
+    <tr>
+      <td></td>
+      <td>{{ person.person_name }}</td>
+      <td>{{ person.skill_level }}</td>
+      <td>{{ person.rank }}</td>
+    </tr>
 
   {% endfor %}
 
