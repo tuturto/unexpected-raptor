@@ -1,0 +1,17 @@
+{% if forces %}
+    <table>
+    <tr>
+      <th>Force</th>
+      <th>Personnel count</th>
+    </tr>
+    {% for force in forces %}
+        <tr>
+          <td><a href="/personnel/{{ force.id }}/">{{ force.force_name }}</a></td>
+          <td>{{ force.personnel_count }}</td>
+        </tr>
+    {% endfor %}
+
+    </table>
+{% else %}
+    <p>No forces available.</p>
+{% endif %}
