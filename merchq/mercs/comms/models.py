@@ -8,7 +8,7 @@ class Tag(models.Model):
 
 class NewsEntry(models.Model):
     title = models.CharField(max_length = 100)
-    text = models.CharField(max_length = 5000)
+    text = models.TextField(max_length = 5000)
     pub_date = models.DateField()
     tags = models.ManyToManyField(Tag)
 
