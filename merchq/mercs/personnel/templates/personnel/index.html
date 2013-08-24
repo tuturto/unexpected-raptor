@@ -1,3 +1,6 @@
+{% extends "personnel/app_base.html" %}
+
+{% block content %}
 {% if forces %}
     <table>
     <tr>
@@ -15,3 +18,5 @@
 {% else %}
     <p>No forces available.</p>
 {% endif %}
+{% endblock %}
+

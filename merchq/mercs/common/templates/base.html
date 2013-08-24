@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MercHq</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href={% static "style.css" %}/>
+</head>
+<body>
+<div id="container">
+  <div id="header">MercHq</div>
+  <div id="menu"> <a href="/comms/">Comms</a> &nbsp; &nbsp; &nbsp; &nbsp; 
+                  <a href="/personnel/">Personnel</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                  <a href="/armoury/">Armoury</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                  <a href="/finances/">Finances</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                  <a href="/contracts/">Contracts</a> </div>
+  <div id="menu2">{% block app_menu %}{% endblock %}</div>
+  <div id="sidebar">
+    {% block sidebar %}{% endblock %}
+  </div>
+  <div id="main">
+    {% block content %}{% endblock %}
+  </div>
+  <div id="footer"> &copy;2013 Tuukka Turto &nbsp;<span class="separator">|</span>&nbsp; Design by <a href="http://www.realitysoftware.ca">Reality Software</a> </div>
+</div>
+</body>
+</html>
+
