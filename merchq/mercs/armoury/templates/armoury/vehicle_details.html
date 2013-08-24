@@ -1,0 +1,38 @@
+{% extends "armoury/app_base.html" %}
+
+{% block content %}
+
+<table>
+<tr>
+  <th></th>
+  <th></th>
+</tr>
+
+<tr>
+  <td>Name:</td>
+  <td>{{ vehicle.vehicle_name }}</td>
+</tr>
+<tr>
+  <td>Owner:</td>
+  <td>{{ vehicle.owner }}</td>
+</tr>
+<tr>
+  <td>Type:</td>
+  <td>{{ weight_class.weight_class }} {{ vehicle.vehicle_type }}</td>
+</tr>
+<tr>
+  <td>Weight:</td>
+  <td>{{ vehicle.vehicle_weight }}</td>
+</tr>
+<tr>
+  <td>Maintenance/wk:</td>
+  <td>{{ vehicle.weekly_maintenance_cost }} credits</td>
+</tr>
+<tr>
+  <td>Maintenance/wk:</td>
+  <td>{{ vehicle.weekly_support }} hours</td>
+</tr>
+
+</table>
+
+{% endblock %}

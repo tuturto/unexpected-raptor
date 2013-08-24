@@ -3,7 +3,7 @@ from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 
 from mercs.forces.models import Force
-from mercs.armoury.models import VehicleType
+from mercs.armoury.models import VehicleType, Vehicle, WeightClass
 
 def index(request):
     forces = Force.objects.all().annotate(vehicle_count = Count('vehicle'))
@@ -44,4 +44,22 @@ def force_armoury(request, force_id):
                'total_support': support}
 
     return render(request, 'armoury/force_vehicles.html', context)
+
+def vehicle_details(request, vehicle_id):
+
+    vehicle = get_object_or_404(Vehicle, id=vehicle_id)
+
+    weight_classes = WeightClass.objects.filter(vehicle_type = vehicle.vehicle_type,
+                                                lower_limit__lte = vehicle.vehicle_weight,
+                                                upper_limit__gte = vehicle.vehicle_weight)
+
+    if weight_classes:
+        weight_class = weight_classes[0]
+    else:
+        weight_class = None
+
+    context = {'vehicle': vehicle,
+               'weight_class': weight_class}
+
+    return render(request, 'armoury/vehicle_details.html', context)
 
