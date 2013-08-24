@@ -1,5 +1,22 @@
 {% extends "armoury/app_base.html" %}
 
 {% block content %}
+{% if forces %}
+    <table>
+    <tr>
+      <th>Force</th>
+      <th>Vehicle count</th>
+    </tr>
+    {% for force in forces %}
+        <tr>
+          <td><a href="/armoury/{{ force.id }}/">{{ force.force_name }}</a></td>
+          <td>{{ force.vehicle_count }}</td>
+        </tr>
+    {% endfor %}
+
+    </table>
+{% else %}
+    <p>No forces available.</p>
+{% endif %}
 {% endblock %}
 
