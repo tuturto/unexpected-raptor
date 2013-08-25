@@ -33,10 +33,11 @@ class InvoiceRow(models.Model):
         return self.price * self.amount
 
     def __unicode__(self):
-        return '{0} {1}, {2} price per piece, total: {3}'.format(self.amount,
-                                                                 self.product,
-                                                                 self.price,
-                                                                 self.value())
+        return '{0} {1}, {2} price per piece, total: {3} ({4})'.format(self.amount,
+                                                                       self.product,
+                                                                       self.price,
+                                                                       self.value(),
+                                                                       self.note)
 
 class Transaction(models.Model):
     force = models.ForeignKey(Force)
