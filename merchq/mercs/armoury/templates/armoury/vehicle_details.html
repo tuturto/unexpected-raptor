@@ -36,3 +36,8 @@
 </table>
 
 {% endblock %}
+
+{% block sidebar %}
+<a href="/armoury/vehicle/sell/{{ vehicle.id }}">Sell</a><br>
+<a href="/armoury/vehicle/repair/{{ vehicle.id }}">Schedule for repair</a>
+{% endblock %}
