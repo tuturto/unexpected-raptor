@@ -13,7 +13,7 @@
 {% for entry in transactions %}
 
   <tr>
-    <td>{{ entry.date }}</td>
+    <td>{{ entry.date.isoformat }}</td>
     <td>{{ entry.value }}</td>
     <td>{{ entry.note }}</td>
     <td><a href="finances/invoice_details/{{ entry.invoice.id }}">{{ entry.invoice.id }}</a></td>
