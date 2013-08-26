@@ -44,7 +44,9 @@ class Transaction(models.Model):
     value = models.IntegerField(default = 0)
     date = models.DateField()
     note = models.TextField(max_length = 250)
-    invoice = models.ForeignKey(Invoice)
+    invoice = models.ForeignKey(Invoice,
+                                null = True,
+                                blank = True)
 
     def __unicode__(self):
         return '{0} {1} : {2}'.format(self.force.force_name,

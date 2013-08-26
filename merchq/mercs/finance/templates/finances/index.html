@@ -2,7 +2,19 @@
 
 {% block content %}
 {% if forces %}
+    <table>
+    <tr>
+      <th>Force</th>
+      <th>Balance</th>
+    </tr>
+    {% for force in forces %}
+        <tr>
+          <td><a href="/finances/{{ force.0.id }}/">{{ force.0.force_name }}</a></td>
+          <td>{{ force.1 }}</td>
+        </tr>
+    {% endfor %}
 
+    </table>
 {% else %}
     <p>No forces available.</p>
 {% endif %}

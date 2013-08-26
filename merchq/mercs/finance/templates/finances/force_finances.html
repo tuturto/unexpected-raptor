@@ -1,0 +1,32 @@
+{% extends "finances/app_base.html" %}
+
+{% block content %}
+
+<table cellpadding="4">
+<tr>
+  <th>Date</th>
+  <th>Value</th>  
+  <th>Note</th>
+  <th>Invoice</th>
+</tr>
+
+{% for entry in transactions %}
+
+  <tr>
+    <td>{{ entry.date }}</td>
+    <td>{{ entry.value }}</td>
+    <td>{{ entry.note }}</td>
+    <td><a href="finances/invoice_details/{{ entry.invoice.id }}">{{ entry.invoice.id }}</a></td>
+  </tr>
+
+{% endfor %}
+
+  <tr>
+    <td>Balance</td>
+    <td>{{ balance }}</td>
+    <td colspan="2"></td>
+  </tr>
+
+</table>
+
+{% endblock %}
