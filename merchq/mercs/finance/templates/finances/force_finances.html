@@ -16,7 +16,11 @@
     <td>{{ entry.date.isoformat }}</td>
     <td>{{ entry.value }}</td>
     <td>{{ entry.note }}</td>
-    <td><a href="finances/invoice_details/{{ entry.invoice.id }}">{{ entry.invoice.id }}</a></td>
+    {% if entry.invoice %}
+      <td><a href="/finances/invoice/{{ entry.invoice.id }}">#{{ entry.invoice.id }}</a></td>
+    {% else %}
+      <td></td>
+    {% endif %}
   </tr>
 
 {% endfor %}

@@ -1,0 +1,45 @@
+{% extends "finances/app_base.html" %}
+
+{% block content %}
+
+<table cellpadding="4">
+  <tr>
+    <td>Invoice:</td><td>#{{ invoice.id }}</td>
+  <tr>
+  </tr>
+    <td>Force:</td><td>{{ invoice.force.force_name }}</td>
+  <tr>
+  </tr>
+    <td>Date:</td><td>{{ invoice.date.isoformat }}</td>
+  </tr>
+</table>
+
+<table cellpadding="4">
+<tr>
+  <th>Amount</th>  
+  <th>Price</th>
+  <th>Total</th>
+  <th>Product</th>
+  <th>Note</th>
+</tr>
+
+{% for entry in invoice.invoicerow_set.all %}
+
+  <tr>
+    <td>{{ entry.amount }}</td>
+    <td>{{ entry.price }}</td>
+    <td>{{ entry.value }}</td>
+    <td>{{ entry.product.product_name }}</td>
+    <td>{{ entry.note }}</td>
+  </tr>
+
+{% endfor %}
+
+  <tr>
+    <td colspan="2"></td>
+    <td>{{ invoice.value }}</td>
+    <td></td>
+
+</table>
+
+{% endblock %}

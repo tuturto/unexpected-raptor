@@ -4,6 +4,7 @@ from mercs.forces.models import Force
 
 class Invoice(models.Model):
     force = models.ForeignKey(Force)
+    date = models.DateField()
 
     def value(self):
         invoices = self.invoicerow_set.all()

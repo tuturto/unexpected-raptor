@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
 from mercs.forces.models import Force
-from mercs.finance.models import Transaction
+from mercs.finance.models import Transaction, Invoice
 
 def index(request):
     forces = Force.objects.all()
@@ -31,4 +31,12 @@ def force_finances(request, force_id):
                'balance': balance}
 
     return render(request, 'finances/force_finances.html', context)
+
+def invoice(request, invoice_id):
+    
+    invoice = get_object_or_404(Invoice, id = invoice_id)
+
+    context = {'invoice': invoice}
+
+    return render(request, 'finances/invoice.html', context)
 
