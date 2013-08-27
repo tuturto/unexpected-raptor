@@ -9,12 +9,14 @@
   <th>Skill level</th>
   <th>Rank</th>
   <th>Salary</th>
+  <th>Team</th>
 </tr>
 
 {% for entry in force_personnel %}
 
   <tr>
     <td>{{ entry.0 }}</td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -28,6 +30,7 @@
       <td>{{ person.skill_level }}</td>
       <td>{{ person.rank }}</td>
       <td>{{ person.get_salary }}</td>
+      <td>{{ person.maintenance_team }}</td>
     </tr>
 
   {% endfor %}
@@ -36,6 +39,7 @@
     <td colspan="3"></td>
     <td>Sub-Total</td>
     <td>{{ entry.2 }}</td>
+    <td></td>
   </tr>
 
 {% endfor %}
@@ -44,6 +48,7 @@
     <td colspan="3"></td>
     <td>Total</td>
     <td>{{ total_salary }}</td>
+    <td></td>
   </tr>
 
 </table>

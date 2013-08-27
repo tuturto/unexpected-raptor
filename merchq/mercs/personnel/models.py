@@ -28,6 +28,13 @@ class Rank(models.Model):
     def __unicode__(self):
         return self.rank_name
 
+class MaintenanceTeam(models.Model):
+    
+    team_name = models.CharField(max_length = 100)
+
+    def __unicode__(self):
+        return self.team_name
+
 class Person(models.Model):
     person_name = models.CharField(max_length = 100)
     position = models.ForeignKey(Position)
@@ -36,6 +43,9 @@ class Person(models.Model):
     force = models.ForeignKey(mercs.forces.models.Force,
                               null = True,
                               blank = True)
+    maintenance_team = models.ForeignKey(MaintenanceTeam,
+                                         null = True,
+                                         blank = True)
 
     def get_salary(self):
         return (self.position.base_salary *
