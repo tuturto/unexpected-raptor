@@ -30,7 +30,7 @@
       <td>{{ person.skill_level }}</td>
       <td>{{ person.rank }}</td>
       <td>{{ person.get_salary }}</td>
-      <td>{{ person.maintenance_team }}</td>
+      <td><a href="/personnel/team/{{ person.maintenance_team.id }}">{{ person.maintenance_team.team_name }}</a></td>
     </tr>
 
   {% endfor %}
