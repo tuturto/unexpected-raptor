@@ -33,8 +33,11 @@ class Vehicle(models.Model):
     weekly_maintenance_cost = models.IntegerField(default = 0)
     weekly_support = models.FloatField(default = 0)
     support_type = models.ForeignKey(SupportType)
-    owner = models.ForeignKey(Force)
+    owner = models.ForeignKey(Force,
+                              blank = True,
+                              null = True)
     base_price = models.IntegerField(default = 0)
+    active = models.BooleanField(default = True)
 
     def __unicode__(self):
         return '{0} ({1})'.format(self.vehicle_name,

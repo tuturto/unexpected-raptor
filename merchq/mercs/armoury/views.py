@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from mercs.forces.models import Force
 from mercs.armoury.models import VehicleType, Vehicle, WeightClass
 
+from mercs.armoury import process
+
 def index(request):
     forces = Force.objects.all().annotate(vehicle_count = Count('vehicle'))
     context = {'forces': forces}
@@ -62,4 +64,18 @@ def vehicle_details(request, vehicle_id):
                'weight_class': weight_class}
 
     return render(request, 'armoury/vehicle_details.html', context)
+
+def sell_vehicle(request, vehicle_id, confirmed = None):
+
+    vehicle = get_object_or_404(Vehicle, id=vehicle_id)
+    price = int(vehicle.base_price * 0.5)
+
+    if confirmed:       
+        process.sell_vehicle(vehicle, price)
+
+    context = {'vehicle': vehicle,
+               'price': price,
+               'confirmed': confirmed}
+
+    return render(request, 'armoury/sell_vehicle.html', context)
 
