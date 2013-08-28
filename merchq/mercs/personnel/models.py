@@ -1,3 +1,22 @@
+# -*- coding: utf-8 -*-
+
+#   Copyright 2013 Tuukka Turto
+#
+#   This file is part of mercs.
+#
+#   mercs is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   mercs is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with pyherc.  If not, see <http://www.gnu.org/licenses/>.
+
 from django.db import models
 import mercs.forces.models
 
@@ -28,7 +47,7 @@ class Rank(models.Model):
     def __unicode__(self):
         return self.rank_name
 
-class MaintenanceTeam(models.Model):
+class Team(models.Model):
     
     team_name = models.CharField(max_length = 100)
 
@@ -43,9 +62,9 @@ class Person(models.Model):
     force = models.ForeignKey(mercs.forces.models.Force,
                               null = True,
                               blank = True)
-    maintenance_team = models.ForeignKey(MaintenanceTeam,
-                                         null = True,
-                                         blank = True)
+    team = models.ForeignKey(Team,
+                             null = True,
+                             blank = True)
 
     def get_salary(self):
         return (self.position.base_salary *

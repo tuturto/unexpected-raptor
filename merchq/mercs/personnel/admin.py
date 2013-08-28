@@ -1,6 +1,25 @@
+# -*- coding: utf-8 -*-
+
+#   Copyright 2013 Tuukka Turto
+#
+#   This file is part of mercs.
+#
+#   mercs is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   mercs is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with pyherc.  If not, see <http://www.gnu.org/licenses/>.
+
 from django.contrib import admin
 from mercs.personnel.models import Person, Rank, Position, SkillLevel
-from mercs.personnel.models import SkillDefinition, Skill, MaintenanceTeam
+from mercs.personnel.models import SkillDefinition, Skill, Team
 
 admin.site.register(Person)
 admin.site.register(Rank)
@@ -8,4 +27,4 @@ admin.site.register(Position)
 admin.site.register(SkillLevel)
 admin.site.register(SkillDefinition)
 admin.site.register(Skill)
-admin.site.register(MaintenanceTeam)
+admin.site.register(Team)
