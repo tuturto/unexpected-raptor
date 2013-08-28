@@ -25,6 +25,8 @@ def sell_vehicle(vehicle, price):
   
     trans_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
+    force = vehicle.owner
+
     trans = Transaction()
     trans.force = vehicle.owner
     trans.value = price
@@ -32,9 +34,10 @@ def sell_vehicle(vehicle, price):
     trans.note = 'sale {0}'.format(vehicle.vehicle_name)
 
     news = NewsEntry()
-    news.title = '{0} has been sold'.format(vehicle.vehicle_name)
-    news.text = 'Today our trustry {0} was sold for a price of {1}.'.format(vehicle.vehicle_name,
-                                                                            price)
+    news.title = 'Sold: {0}'.format(vehicle.vehicle_name)
+    news.text = '{0} has sold {1} for a price of {2}.'.format(force.force_name,
+                                                              vehicle.vehicle_name,
+                                                              price)
     news.pub_date = trans.date
 
     vehicle.active = False
