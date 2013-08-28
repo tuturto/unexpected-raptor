@@ -1,0 +1,27 @@
+{% extends "comms/app_base.html" %}
+
+{% block content %}
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+
+{% for entry in entries %}
+
+  <tr>
+    <td>{{ entry.pub_date.isoformat }}</td>
+    <td>{{ entry.title }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>{{ entry.text }}</td>
+  </tr>
+  <tr></tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

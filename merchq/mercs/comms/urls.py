@@ -17,21 +17,12 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.db import models
+from django.conf.urls import patterns, url
 
-class Tag(models.Model):
-    tag_name = models.CharField(max_length = 50)
+from mercs.comms import views
 
-    def __unicode__(self):
-        return self.tag_name
-
-class NewsEntry(models.Model):
-    title = models.CharField(max_length = 100)
-    text = models.TextField(max_length = 5000)
-    pub_date = models.DateField()
-    tags = models.ManyToManyField(Tag)
-
-    def __unicode__(self):
-        return '{0} - {1}'.format(self.pub_date,
-                                  self.title)
+urlpatterns = patterns('',
+    url(r'^$', views.index, name='index'),
+    url(r'^(?P<news_id>\d+)/$', views.news_entry, name='news_entry'),
+)
 

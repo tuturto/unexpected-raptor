@@ -17,5 +17,20 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-pass
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+
+from mercs.comms.models import NewsEntry
+
+def index(request):
+
+    entries = NewsEntry.objects.all()[:50]
+
+    context = {'entries': entries}
+
+    return render(request, 'comms/index.html', context)
+
+def news_entry(request, entry_id):
+
+    pass
 
