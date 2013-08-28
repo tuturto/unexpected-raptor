@@ -19,6 +19,7 @@
 
 from mercs.finance.models import Invoice, InvoiceRow, Transaction
 from mercs.common.models import Parameter
+from mercs.comms.models import NewsEntry
 
 def sell_vehicle(vehicle, price):
   
@@ -30,9 +31,16 @@ def sell_vehicle(vehicle, price):
     trans.date = trans_date
     trans.note = 'sale {0}'.format(vehicle.vehicle_name)
 
+    news = NewsEntry()
+    news.title = '{0} has been sold'.format(vehicle.vehicle_name)
+    news.text = 'Today our trustry {0} was sold for a price of {1}.'.format(vehicle.vehicle_name,
+                                                                            price)
+    news.pub_date = trans.date
+
     vehicle.active = False
     vehicle.owner = None
 
     vehicle.save()
+    news.save()
     trans.save()
 
