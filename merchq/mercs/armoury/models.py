@@ -20,6 +20,15 @@
 from django.db import models
 from mercs.forces.models import Force
 
+class QualityRating(models.Model):
+    rating = models.CharField(max_length = 10)
+    rating_name = models.CharField(max_length = 50)
+    cost_modifier = models.FloatField(default = 1.0)
+    
+    def __unicode__(self):
+        return 'rating {0} ({1})'.format(self.rating,
+                                         self.rating_name)
+
 class VehicleType(models.Model):
     type_name = models.CharField(max_length = 50)
     
@@ -57,6 +66,8 @@ class Vehicle(models.Model):
                               null = True)
     base_price = models.IntegerField(default = 0)
     active = models.BooleanField(default = True)
+
+    quality_rating = models.ForeignKey(QualityRating)
 
     def __unicode__(self):
         return '{0} ({1})'.format(self.vehicle_name,

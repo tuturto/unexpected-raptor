@@ -87,7 +87,8 @@ def vehicle_details(request, vehicle_id):
 def sell_vehicle(request, vehicle_id, confirmed = None):
 
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
-    price = int(vehicle.base_price * 0.5)
+    rating = vehicle.quality_rating
+    price = int(vehicle.base_price * 0.5 * rating.cost_modifier)
 
     if confirmed:       
         process.sell_vehicle(vehicle, price)
