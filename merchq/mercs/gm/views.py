@@ -17,9 +17,18 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+
 def index(request):
-    pass
+
+    context = {}
+
+    return render(request, 'gm/index.html', context)
 
 def gm_log(request):
-    pass
+
+    context = {}
+
+    return render(request, 'gm/log.html', context)
 
