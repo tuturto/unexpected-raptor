@@ -58,8 +58,8 @@ class Vehicle(models.Model):
     vehicle_type = models.ForeignKey(VehicleType)
     vehicle_weight = models.IntegerField(default = 0)
 
-    weekly_maintenance_cost = models.IntegerField(default = 0)
-    weekly_support = models.FloatField(default = 0)
+    maintenance = models.IntegerField(default = 0)
+    
     support_type = models.ForeignKey(SupportType)
     owner = models.ForeignKey(Force,
                               blank = True,

@@ -7,15 +7,13 @@
   <th>Type</th>
   <th>Name</th>
   <th>Weight</th>
-  <th>Credits/wk</th>
-  <th>Hours/wk</th>
+  <th>Minutes/d</th>
 </tr>
 
 {% for entry in force_vehicles %}
 
   <tr>
     <td>{{ entry.0 }}</td>
-    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -26,8 +24,7 @@
       <td></td>
       <td><a href="/armoury/vehicle/{{ vehicle.id }}">{{ vehicle.vehicle_name }}</a></td>
       <td>{{ vehicle.vehicle_weight }}</td>
-      <td>{{ vehicle.weekly_maintenance_cost }}</td>
-      <td>{{ vehicle.weekly_support }}</td>
+      <td>{{ vehicle.maintenance }}</td>
     </tr>
 
   {% endfor %}
@@ -42,8 +39,7 @@
 
   <tr>
     <td colspan="3"></td>
-    <td>{{ total_maintenance }}</td>
-    <td>{{ total_support }}</td>
+    <td>{{ maintenance }}</td>
   </tr>
 
 </table>

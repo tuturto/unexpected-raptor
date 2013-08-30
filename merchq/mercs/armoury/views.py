@@ -41,11 +41,8 @@ def force_armoury(request, force_id):
 
     vehicle_types = VehicleType.objects.all().order_by('type_name')
 
-    maintenance_cost = sum([vehicle.weekly_maintenance_cost for vehicle
-                            in vehicles])
-
-    support = sum([vehicle.weekly_support for vehicle
-                   in vehicles])
+    maintenance = sum([vehicle.maintenance for vehicle
+                       in vehicles])
 
     vehicle_data = []
 
@@ -54,15 +51,12 @@ def force_armoury(request, force_id):
                              if vehicle.vehicle_type == vehicle_type]
         vehicle_data.append([vehicle_type,
                              matching_vehicles,
-                             sum([vehicle.weekly_maintenance_cost for vehicle
-                                 in matching_vehicles]),
-                             sum([vehicle.weekly_support for vehicle
+                             sum([vehicle.maintenance for vehicle
                                  in matching_vehicles])])
-   
+
     context = {'force': force,
                'force_vehicles': vehicle_data,
-               'total_maintenance': maintenance_cost,
-               'total_support': support}
+               'maintenance': maintenance,}
 
     return render(request, 'armoury/force_vehicles.html', context)
 
