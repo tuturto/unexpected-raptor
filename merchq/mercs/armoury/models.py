@@ -73,3 +73,14 @@ class Vehicle(models.Model):
         return '{0} ({1})'.format(self.vehicle_name,
                                   self.id)
 
+class MaintenanceLogEntry(models.Model):
+    entry_date = models.DateField()
+
+    note = models.TextField(max_length = 250)
+
+    vehicle = models.ForeignKey(Vehicle,
+                                blank = True,
+                                null = True)
+
+    force = models.ForeignKey(Force)
+
