@@ -17,9 +17,9 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-def index(request):
-    pass
+from django.contrib import admin
 
-def gm_log(request):
-    pass
+from mercs.gm.models import GMLogEntry
+
+admin.site.register(GMLogEntry)
 

@@ -17,9 +17,12 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-def index(request):
-    pass
+from django.conf.urls import patterns, url
 
-def gm_log(request):
-    pass
+from mercs.gm import views
+
+urlpatterns = patterns('',
+    url(r'^$', views.index, name='index'),
+    url(r'^gm_log/$', views.gm_log, name='gm_log'),
+)
 
