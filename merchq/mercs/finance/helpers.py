@@ -59,8 +59,9 @@ def balance_report(request, force_id, year):
 
     pixel_per_date = image_width / 366
     max_balance = max(balances)
+
     if max_balance:
-        pixel_per_credit = image_heigth / max_balances
+        pixel_per_credit = image_heigth / max_balance
     else:
         pixel_per_credit = 0
 
