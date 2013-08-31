@@ -60,3 +60,11 @@ def invoice(request, invoice_id):
 
     return render(request, 'finances/invoice.html', context)
 
+def reports(request, force_id):
+    force = get_object_or_404(Force, id = force_id)
+
+    context = {'force': force,
+               'year': 3068}
+
+    return render(request, 'finances/balance_report.html', context)
+

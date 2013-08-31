@@ -19,11 +19,13 @@
 
 from django.conf.urls import patterns, url
 
-from mercs.finance import views
+from mercs.finance import views, helpers
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^(?P<force_id>\d+)/$', views.force_finances, name='force_finances'),
     url(r'^invoice/(?P<invoice_id>\d+)/$', views.invoice, name='invoice'),
+    url(r'^reports/(?P<force_id>\d+)/$', views.reports, name='reports'),
+    url(r'^balance_chart/(?P<force_id>\d{1})/(?P<year>\d{4})/$', helpers.balance_report, name='jaska'),
 )
 
