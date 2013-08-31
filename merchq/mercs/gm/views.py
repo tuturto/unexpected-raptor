@@ -32,3 +32,9 @@ def gm_log(request):
 
     return render(request, 'gm/log.html', context)
 
+def gm_cycle(request):
+
+    context = {}
+
+    return render(request, 'gm/index.html', context)
+

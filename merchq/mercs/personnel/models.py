@@ -19,6 +19,7 @@
 
 from django.db import models
 import mercs.forces.models
+from mercs.armoury.models import Vehicle
 
 class Position(models.Model):
     position_name = models.CharField(max_length = 100)
@@ -50,6 +51,10 @@ class Rank(models.Model):
 class Team(models.Model):
     
     team_name = models.CharField(max_length = 100)
+
+    vehicle = models.ForeignKey(Vehicle,
+                                blank = True,
+                                null = True)
 
     def __unicode__(self):
         return self.team_name

@@ -17,13 +17,12 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from mercs.finance.models import Transaction
 
-from mercs.gm import views
+def balance(force, balance_date):
+    transactions = Transaction.objects.filter(force = force)
+    balance = sum([transaction.value for transaction
+                   in transactions])
 
-urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
-    url(r'^log/$', views.gm_log, name='gm_log'),
-    url(r'^cycle/$', views.gm_log, name='gm_cycle'),
-)
+    return balance
 

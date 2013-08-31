@@ -22,18 +22,18 @@ from django.shortcuts import render, get_object_or_404
 
 from mercs.forces.models import Force
 from mercs.finance.models import Transaction, Invoice
+from mercs.common.models import Parameter
+from mercs.finance.helpers import balance
 
 def index(request):
     forces = Force.objects.all()
-    transactions = Transaction.objects.all()
+
+    balance_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     force_data = []
 
     for force in forces:        
-        balance = sum([transaction.value for transaction
-                       in transactions
-                       if transaction.force == force])
-        force_data.append([force, balance])
+        force_data.append([force, balance(force, balance_date)])
 
     context = {'forces': force_data}
 
@@ -41,13 +41,14 @@ def index(request):
 
 def force_finances(request, force_id):
     force = get_object_or_404(Force, id = force_id)
-    transactions = Transaction.objects.filter(force = force_id)
-    balance = sum([transaction.value for transaction
-                   in transactions])
+
+    transactions = Transaction.objects.filter(force = force)
+
+    balance_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     context = {'force': force,
                'transactions': transactions,
-               'balance': balance}
+               'balance': balance(force, balance_date)}
 
     return render(request, 'finances/force_finances.html', context)
 
