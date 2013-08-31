@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^(?P<force_id>\d+)/$', views.force_finances, name='force_finances'),
     url(r'^invoice/(?P<invoice_id>\d+)/$', views.invoice, name='invoice'),
     url(r'^reports/(?P<force_id>\d+)/$', views.reports, name='reports'),
-    url(r'^balance_chart/(?P<force_id>\d{1})/(?P<year>\d{4})/$', helpers.balance_report, name='jaska'),
+    url(r'^reports/(?P<force_id>\d+)/(?P<year>\d{4})/$', views.reports, name='year_reports'),
+    url(r'^balance_chart/(?P<force_id>\d+)/(?P<year>\d{4})/$', helpers.balance_report, name='balance_report'),
 )
 

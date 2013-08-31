@@ -58,7 +58,11 @@ def balance_report(request, force_id, year):
         running_date = running_date + datetime.timedelta(1)
 
     pixel_per_date = image_width / 366
-    pixel_per_credit = image_heigth / max(balances)    
+    max_balance = max(balances)
+    if max_balance:
+        pixel_per_credit = image_heigth / max_balances
+    else:
+        pixel_per_credit = 0
 
     image = Image.new("RGB", (image_width, image_heigth), 'white')
 

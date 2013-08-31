@@ -60,11 +60,15 @@ def invoice(request, invoice_id):
 
     return render(request, 'finances/invoice.html', context)
 
-def reports(request, force_id):
+def reports(request, force_id, year = None):
     force = get_object_or_404(Force, id = force_id)
 
+    if not year:
+        param = Parameter.objects.filter(parameter_name = 'current date')[0]
+        year = param.date_value.year
+
     context = {'force': force,
-               'year': 3068}
+               'year': year}
 
     return render(request, 'finances/balance_report.html', context)
 
