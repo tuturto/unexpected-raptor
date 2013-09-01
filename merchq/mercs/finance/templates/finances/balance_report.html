@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<img src="/finances/balance_chart/{{force.id}}/{{year}}" alt="balance report"> 
+{% if month %}
+  <img src="/finances/balance_chart/{{force.id}}/{{year}}/{{month}}" alt="balance report"> 
+{% else %}
+  <img src="/finances/balance_chart/{{force.id}}/{{year}}" alt="balance report"> 
+{% endif %}
 
 {% endblock %}
 

@@ -34,7 +34,7 @@ def balance(force, balance_date):
 
     return balance
 
-def balance_report(request, force_id, year):
+def balance_report(request, force_id, year, month = None):
 
     image_width = 700
     image_heigth = 400
@@ -43,13 +43,26 @@ def balance_report(request, force_id, year):
     current_date = params[0].date_value
 
     year = int(year)
-    force = get_object_or_404(Force, id = force_id)
-    running_date = datetime.date(year, 1, 1)
+    if month:
+        month = int(month)
 
-    if current_date.year == year:
-        end_date = current_date
+    force = get_object_or_404(Force, id = force_id)
+
+    if month:
+        running_date = datetime.date(year, month, 1)
     else:
-        end_date = datetime.date(year + 1, 1, 1)
+        running_date = datetime.date(year, 1, 1)
+
+    if month:
+        if month < 12:
+            end_date = datetime.date(year, month + 1, 1)
+        else:
+            end_date = datetime.date(year + 1, 1, 1)
+    else:
+        if current_date.year == year:
+            end_date = current_date
+        else:
+            end_date = datetime.date(year + 1, 1, 1)
 
     balances = []
 
@@ -57,7 +70,11 @@ def balance_report(request, force_id, year):
         balances.append(balance(force, running_date))
         running_date = running_date + datetime.timedelta(1)
 
-    pixel_per_date = image_width / 366
+    if month:
+        pixel_per_date = image_width / 31
+    else:
+        pixel_per_date = image_width / 366
+
     max_balance = max(balances)
 
     if max_balance:

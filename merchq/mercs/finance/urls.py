@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     url(r'^invoice/(?P<invoice_id>\d+)/$', views.invoice, name='invoice'),
     url(r'^reports/(?P<force_id>\d+)/$', views.reports, name='reports'),
     url(r'^reports/(?P<force_id>\d+)/(?P<year>\d{4})/$', views.reports, name='year_reports'),
+    url(r'^reports/(?P<force_id>\d+)/(?P<year>\d{4})/(?P<month>\d{2})/$', views.reports, name='year_reports'),
     url(r'^balance_chart/(?P<force_id>\d+)/(?P<year>\d{4})/$', helpers.balance_report, name='balance_report'),
+    url(r'^balance_chart/(?P<force_id>\d+)/(?P<year>\d{4})/(?P<month>\d{2})/$', helpers.balance_report, name='balance_report'),
 )
 
