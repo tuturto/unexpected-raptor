@@ -4,9 +4,13 @@
 
 {% if month %}
   <img src="/finances/balance_chart/{{force.id}}/{{year}}/{{month}}" alt="balance report"> 
+  <p>{{year}}-{{month}} - {{force.force_name}}</p>
 {% else %}
   <img src="/finances/balance_chart/{{force.id}}/{{year}}" alt="balance report"> 
+  <p>{{year}} - {{force.force_name}}</p>
 {% endif %}
+
+
 
 {% endblock %}
 
