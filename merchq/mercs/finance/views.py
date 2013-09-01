@@ -66,9 +66,13 @@ def reports(request, force_id, year = None, month = None):
     if not year:
         param = Parameter.objects.filter(parameter_name = 'current date')[0]
         year = param.date_value.year
+    else:
+        year = int(year)
 
     context = {'force': force,
                'year': year,
+               'previous_year': year - 1,
+               'next_year': year + 1,
                'month': month}
 
     return render(request, 'finances/balance_report.html', context)

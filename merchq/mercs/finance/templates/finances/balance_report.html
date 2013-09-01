@@ -10,3 +10,23 @@
 
 {% endblock %}
 
+{% block sidebar %}
+
+<a href="/finances/reports/{{force.id}}/{{previous_year}}/">&lt;&lt;</a>
+&nbsp;&nbsp;<a href="/finances/reports/{{force.id}}/{{year}}/">{{year}}</a>&nbsp;&nbsp;
+<a href="/finances/reports/{{force.id}}/{{next_year}}/">&gt;&gt;</a>
+<br>
+<a href="/finances/reports/{{force.id}}/{{year}}/01">01</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/02">02</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/03">03</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/04">04</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/05">05</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/06">06</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/07">07</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/08">08</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/09">09</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/10">10</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/11">11</a>
+<a href="/finances/reports/{{force.id}}/{{year}}/12">12</a>
+
+{% endblock %}
