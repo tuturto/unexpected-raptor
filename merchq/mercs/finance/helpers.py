@@ -60,7 +60,7 @@ def balance_report(request, force_id, year, month = None):
             end_date = datetime.date(year + 1, 1, 1)
     else:
         if current_date.year == year:
-            end_date = current_date
+            end_date = current_date + datetime.timedelta(1)
         else:
             end_date = datetime.date(year + 1, 1, 1)
 
