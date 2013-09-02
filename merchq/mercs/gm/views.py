@@ -21,6 +21,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from mercs.forces.models import Force
 from mercs.gm.cycle import run_cycle
+from mercs.gm.models import GMLogEntry
+from mercs.common.models import Parameter
+import datetime
 
 def index(request):
 
@@ -36,12 +39,21 @@ def gm_log(request):
 
 def gm_cycle(request):
 
-    context = {}
+    param = Parameter.objects.filter(parameter_name = 'current date')[0]
+    param.date_value = param.date_value + datetime.timedelta(1)
+    param.save()
 
     forces = Force.objects.all()
 
     for force in forces:
         run_cycle(force)
+
+    log = GMLogEntry.objects.filter(entry_date = param.date_value)
+
+    context = {'year': param.date_value.year,
+               'month': param.date_value.month,
+               'day': param.date_value.day,
+               'log': log}
 
     return render(request, 'gm/log.html', context)
 
