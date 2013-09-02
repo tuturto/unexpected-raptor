@@ -17,15 +17,29 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.db import models
-from mercs.forces.models import Force
+from mercs.armoury.maintenance import run_maintenance
+from mercs.gm.models import GMLogEntry
+from mercs.common.models import Parameter
 
-class GMLogEntry(models.Model):
+def run_cycle(force):
+    """
+    Run full cycle for a force
+    """
+    param = Parameter.objects.filter(parameter_name = 'current date')[0]   
 
-    entry_date = models.DateField()
-    text = models.TextField(max_length = 2048)
+    log_entry = GMLogEntry()
+    log_entry.entry_date = param.date_value
+    log_entry.text = 'Running a cycle for force {0}'.format(force.force_name)
+    log_entry.force = force
 
-    force = models.ForeignKey(Force,
-                              null = True,
-                              blank = True)
+    log_entry.save()
+
+    run_maintenance(force)
+
+    log_entry = GMLogEntry()
+    log_entry.entry_date = param.date_value
+    log_entry.text = 'Cycle finished for force {0}'.format(force.force_name)
+    log_entry.force = force
+
+    log_entry.save()
 

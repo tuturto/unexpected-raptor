@@ -17,5 +17,13 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-pass
+def run_maintenance(force):
+    """
+    run repair/maintenance cycle for a force
+    """
+    vehicles = force.vehicle_set.all()
 
+    for vehicle in vehicles:
+        teams = vehicle.team_set.all()    
+
+        

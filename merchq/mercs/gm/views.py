@@ -19,6 +19,8 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from mercs.forces.models import Force
+from mercs.gm.cycle import run_cycle
 
 def index(request):
 
@@ -36,5 +38,10 @@ def gm_cycle(request):
 
     context = {}
 
-    return render(request, 'gm/index.html', context)
+    forces = Force.objects.all()
+
+    for force in forces:
+        run_cycle(force)
+
+    return render(request, 'gm/log.html', context)
 
