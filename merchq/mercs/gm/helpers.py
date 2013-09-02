@@ -17,16 +17,16 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from mercs.armoury.maintenance import run_maintenance
-from mercs.gm.helpers import log
+from mercs.gm.models import GMLogEntry
+from mercs.common.models import Parameter
 
-def run_cycle(force):
-    """
-    Run full cycle for a force
-    """
-    log('Running a cycle for force {0}'.format(force.force_name), force)
+def log(text, force):
+    param = Parameter.objects.filter(parameter_name = 'current date')[0]   
 
-    run_maintenance(force)
+    log_entry = GMLogEntry()
+    log_entry.entry_date = param.date_value
+    log_entry.text = text
+    log_entry.force = force
 
-    log('Cycle finished for force {0}'.format(force.force_name), force)
+    log_entry.save()
 
