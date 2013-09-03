@@ -35,7 +35,8 @@ def index(request):
     for force in forces:        
         force_data.append([force, balance(force, balance_date)])
 
-    context = {'forces': force_data}
+    context = {'forces': force_data,
+               'current_date': balance_date}
 
     return render(request, 'finances/index.html', context)
 
@@ -48,20 +49,25 @@ def force_finances(request, force_id):
 
     context = {'force': force,
                'transactions': transactions,
-               'balance': balance(force, balance_date)}
+               'balance': balance(force, balance_date),
+               'current_date': balance_date}
 
     return render(request, 'finances/force_finances.html', context)
 
 def invoice(request, invoice_id):
     
     invoice = get_object_or_404(Invoice, id = invoice_id)
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
-    context = {'invoice': invoice}
+    context = {'invoice': invoice,
+               'current_date': current_date}
 
     return render(request, 'finances/invoice.html', context)
 
 def reports(request, force_id, year = None, month = None):
     force = get_object_or_404(Force, id = force_id)
+
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     if not year:
         param = Parameter.objects.filter(parameter_name = 'current date')[0]
@@ -73,7 +79,8 @@ def reports(request, force_id, year = None, month = None):
                'year': year,
                'previous_year': year - 1,
                'next_year': year + 1,
-               'month': month}
+               'month': month,
+               'current_date': current_date}
 
     return render(request, 'finances/balance_report.html', context)
 

@@ -21,12 +21,15 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
 from mercs.comms.models import NewsEntry
+from mercs.common.models import Parameter
 
 def index(request):
 
     entries = NewsEntry.objects.all()[:50]
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
-    context = {'entries': entries}
+    context = {'entries': entries,
+               'current_date': current_date}
 
     return render(request, 'comms/index.html', context)
 

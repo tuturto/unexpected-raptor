@@ -23,10 +23,14 @@ from django.shortcuts import render, get_object_or_404
 
 from mercs.personnel.models import Person, Position
 from mercs.forces.models import Force
+from mercs.common.models import Parameter
 
 def index(request):
     forces = Force.objects.all().annotate(personnel_count = Count('person'))
-    context = {'forces': forces}
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+
+    context = {'forces': forces,
+               'current_date': current_date}
 
     return render(request, 'personnel/index.html', context)
 
@@ -47,16 +51,22 @@ def force_personnel(request, force_id):
                          sum([person.get_salary() for person
                               in matching_people])])
    
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+
     context = {'force': force,
                'force_personnel': pos_data,
-               'total_salary': total_salary}
+               'total_salary': total_salary,
+               'current_date': current_date}
 
     return render(request, 'personnel/force_personnel.html', context)
 
 def person_details(request, person_id):
 
     person = get_object_or_404(Person, id=person_id)
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
-    context = {'person': person}
+    context = {'person': person,
+               'current_date': current_date}
 
     return render(request, 'personnel/person_details.html', context)
+

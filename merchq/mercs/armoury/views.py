@@ -23,17 +23,23 @@ from django.shortcuts import render, get_object_or_404
 
 from mercs.forces.models import Force
 from mercs.armoury.models import VehicleType, Vehicle, WeightClass
+from mercs.common.models import Parameter
 
 from mercs.armoury import process
 
 def index(request):
     forces = Force.objects.all().annotate(vehicle_count = Count('vehicle'))
-    context = {'forces': forces}
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+
+    context = {'forces': forces,
+               'current_date': current_date}
 
     return render(request, 'armoury/index.html', context)
 
 def force_armoury(request, force_id):
     force = get_object_or_404(Force, id=force_id)
+
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     vehicles = force.vehicle_set.all().order_by('vehicle_type',
                                                 'vehicle_weight',
@@ -56,13 +62,15 @@ def force_armoury(request, force_id):
 
     context = {'force': force,
                'force_vehicles': vehicle_data,
-               'maintenance': maintenance,}
+               'maintenance': maintenance,
+               'current_date': current_date}
 
     return render(request, 'armoury/force_vehicles.html', context)
 
 def vehicle_details(request, vehicle_id):
 
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     weight_classes = WeightClass.objects.filter(vehicle_type = vehicle.vehicle_type,
                                                 lower_limit__lte = vehicle.vehicle_weight,
@@ -74,7 +82,8 @@ def vehicle_details(request, vehicle_id):
         weight_class = None
 
     context = {'vehicle': vehicle,
-               'weight_class': weight_class}
+               'weight_class': weight_class,
+               'current_date': current_date}
 
     return render(request, 'armoury/vehicle_details.html', context)
 
@@ -83,13 +92,15 @@ def sell_vehicle(request, vehicle_id, confirmed = None):
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     rating = vehicle.quality_rating
     price = int(vehicle.base_price * 0.5 * rating.cost_modifier)
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     if confirmed:       
         process.sell_vehicle(vehicle, price)
 
     context = {'vehicle': vehicle,
                'price': price,
-               'confirmed': confirmed}
+               'confirmed': confirmed,
+               'current_date': current_date}
 
     return render(request, 'armoury/sell_vehicle.html', context)
 
