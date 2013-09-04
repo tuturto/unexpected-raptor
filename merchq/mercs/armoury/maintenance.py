@@ -32,7 +32,7 @@ def run_maintenance(force):
     teams = Team.objects.filter(person__force = force).distinct()
 
     for team in teams:
-        team.remaining_maintenance = 8.0
+        team.remaining_maintenance = 480
 
     for vehicle in vehicles:
         assigned_teams = [team for team in teams
@@ -60,7 +60,7 @@ def _maintenance_with_team(team, vehicle, force):
     roll = random.randint(1, 6) + random.randint(1, 6)
 
     if roll >= tn:
-        log('Maintenance for vehicle {0} by team {1} succesfull'.format(vehicle, team), force)
+        log('Maintenance for vehicle {0} by team {1} succesful'.format(vehicle, team), force)
     else:
         log('Maintenance for vehicle {0} by team {1} failed'.format(vehicle, team), force)
 
@@ -70,7 +70,7 @@ def _maintenance_without_team(vehicle, force):
     roll = random.randint(1, 6) + random.randint(1, 6)
 
     if roll >= tn:
-        log('Maintenance for vehicle {0} without team succesfull'.format(vehicle), force)
+        log('Maintenance for vehicle {0} without team succesful'.format(vehicle), force)
     else:
         log('Maintenance for vehicle {0} without team failed'.format(vehicle), force)
 
