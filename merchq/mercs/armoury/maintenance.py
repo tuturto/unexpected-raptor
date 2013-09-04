@@ -18,6 +18,7 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from mercs.personnel.models import Person, Team
+from mercs.common.models import Parameter
 from mercs.gm.helpers import log
 import random
 
@@ -65,7 +66,8 @@ def _maintenance_with_team(team, vehicle, force):
         log('Maintenance for vehicle {0} by team {1} failed'.format(vehicle, team), force)
 
 def _maintenance_without_team(vehicle, force):
-    tn = 10
+    param = Parameter.objects.get(parameter_name = 'no team maintenance')
+    tn = param.integer_value
 
     roll = random.randint(1, 6) + random.randint(1, 6)
 
