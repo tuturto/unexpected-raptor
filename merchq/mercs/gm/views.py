@@ -27,13 +27,17 @@ import datetime
 
 def index(request):
 
-    context = {}
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+
+    context = {'current_date': current_date}
 
     return render(request, 'gm/index.html', context)
 
 def gm_log(request):
 
-    context = {}
+    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+
+    context = {'current_date': current_date}
 
     return render(request, 'gm/log.html', context)
 
@@ -53,7 +57,8 @@ def gm_cycle(request):
     context = {'year': param.date_value.year,
                'month': param.date_value.month,
                'day': param.date_value.day,
-               'log': log}
+               'log': log,
+               'current_date': param.date_value}
 
     return render(request, 'gm/log.html', context)
 
