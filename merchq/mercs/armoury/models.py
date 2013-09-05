@@ -84,3 +84,31 @@ class MaintenanceLogEntry(models.Model):
 
     force = models.ForeignKey(Force)
 
+class MaintenanceDamageType(models.Model):
+
+    damage_type = models.CharField(max_length = 100)
+
+    def __unicode__(self):
+        return self.damage_type
+
+class MaintenanceDamage(models.Model):
+
+    damage_type = models.ForeignKey(MaintenanceDamageType)
+
+    score = models.IntegerField(default = 0)
+
+class MaintenanceCheck(models.Model):
+
+    margin = models.IntegerField(default = 0)
+
+    new_quality_rating = models.ForeignKey(QualityRating,
+                                           blank = True,
+                                           null = True)
+
+    damage_amount = models.IntegerField(default = 0)
+    damage_type = models.ForeignKey(MaintenanceDamageType,
+                                    blank = True,
+                                    null = True)
+
+    destroyed = models.BooleanField(default = False)
+
