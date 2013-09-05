@@ -60,10 +60,8 @@ def _maintenance_with_team(team, vehicle, force):
 
     roll = random.randint(1, 6) + random.randint(1, 6)
 
-    if roll >= tn:
-        log('Maintenance for vehicle {0} by team {1} succesful'.format(vehicle, team), force)
-    else:
-        log('Maintenance for vehicle {0} by team {1} failed'.format(vehicle, team), force)
+    _maintenance_result(team, vehicle, force, roll, tn)
+       
 
 def _maintenance_without_team(vehicle, force):
     param = Parameter.objects.get(parameter_name = 'no team maintenance')
@@ -71,8 +69,26 @@ def _maintenance_without_team(vehicle, force):
 
     roll = random.randint(1, 6) + random.randint(1, 6)
 
-    if roll >= tn:
-        log('Maintenance for vehicle {0} without team succesful'.format(vehicle), force)
+    _maintenance_result(None, vehicle, force, roll, tn)
+        
+
+def _maintenance_result(team, vehicle, force, roll, target_number):
+    margin = roll - target_number
+
+    if margin < 0:
+        if team:
+            log('Maintenance for vehicle {0} by team {1} failed with margin {2}'.format(vehicle, 
+                                                                                        team,
+                                                                                        margin), force)
+        else:
+            log('Maintenance for vehicle {0} without team failed with margin {1}'.format(vehicle,
+                                                                                         margin), force)
     else:
-        log('Maintenance for vehicle {0} without team failed'.format(vehicle), force)
+        if team:
+            log('Maintenance for vehicle {0} by team {1} succesful with margin {2}'.format(vehicle,
+                                                                                           team,
+                                                                                           margin), force)
+        else:
+            log('Maintenance for vehicle {0} without team succesful with margin {1}'.format(vehicle,
+                                                                                            margin), force)
 
