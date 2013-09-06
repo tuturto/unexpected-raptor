@@ -96,8 +96,6 @@ class MaintenanceCheck(models.Model):
     quality_rating = models.ForeignKey(QualityRating,
                                        related_name = '+')
     new_quality_rating = models.ForeignKey(QualityRating,
-                                           blank = True,
-                                           null = True,
                                            related_name = '+')
 
     damage_amount = models.IntegerField(default = 0)

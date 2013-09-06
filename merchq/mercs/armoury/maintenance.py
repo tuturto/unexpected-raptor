@@ -17,6 +17,7 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
+from mercs.armoury.models import MaintenanceCheck
 from mercs.personnel.models import Person, Team
 from mercs.common.models import Parameter
 from mercs.gm.helpers import log
@@ -91,4 +92,25 @@ def _maintenance_result(team, vehicle, force, roll, target_number):
         else:
             log('Maintenance for vehicle {0} without team succesful with margin {1}'.format(vehicle,
                                                                                             margin), force)
+
+    _maintenance_check(team, vehicle, force, margin)
+
+def _maintenance_check(team, vehicle, force, margin):
+    checks = MaintenanceCheck.objects.filter(margin = margin,
+                                             quality_rating = vehicle.quality_rating)
+
+    if checks:
+        check = checks[0]
+    
+        if vehicle.quality_rating != check.new_quality_rating:
+            log('quality of vehicle {0} has changed from {1} to {2}'.format(vehicle,
+                                                                            vehicle.quality_rating,
+                                                                            check.new_quality_rating),
+                force)
+
+        vehicle.quality_rating = check.new_quality_rating
+
+        vehicle.save()
+    else:
+        log('no entry in quality check table', force)
 
