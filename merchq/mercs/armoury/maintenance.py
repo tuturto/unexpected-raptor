@@ -102,15 +102,32 @@ def _maintenance_check(team, vehicle, force, margin):
     if checks:
         check = checks[0]
     
-        if vehicle.quality_rating != check.new_quality_rating:
-            log('quality of vehicle {0} has changed from {1} to {2}'.format(vehicle,
-                                                                            vehicle.quality_rating,
-                                                                            check.new_quality_rating),
-                force)
-
+        _report_change_in_quality_rating(vehicle, check)
         vehicle.quality_rating = check.new_quality_rating
 
         vehicle.save()
     else:
-        log('no entry in quality check table', force)
+        if margin < 0:
+            checks = MaintenanceCheck.objects.filter(quality_rating = vehicle.quality_rating,
+                                                     lower_limit = True)
+
+            if checks:
+                check = checks[0]
+                _report_change_in_quality_rating(vehicle, check)
+                vehicle.quality_rating = check.new_quality_rating
+        elif margin > 0:
+            checks = MaintenanceCheck.objects.filter(quality_rating = vehicle.quality_rating,
+                                                     upper_limit = True)
+
+            if checks:
+                check = checks[0]
+                _report_change_in_quality_rating(vehicle, check)
+                vehicle.quality_rating = check.new_quality_rating
+
+def _report_change_in_quality_rating(vehicle, check):
+    if vehicle.quality_rating != check.new_quality_rating:
+        log('quality of vehicle {0} has changed from {1} to {2}'.format(vehicle,
+                                                                        vehicle.quality_rating,
+                                                                        check.new_quality_rating),
+            vehicle.owner)
 

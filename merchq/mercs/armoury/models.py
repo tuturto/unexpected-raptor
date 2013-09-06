@@ -92,6 +92,8 @@ class MaintenanceDamage(models.Model):
 class MaintenanceCheck(models.Model):
 
     margin = models.IntegerField(default = 0)
+    lower_limit = models.BooleanField(default = False)
+    upper_limit = models.BooleanField(default = True)
 
     quality_rating = models.ForeignKey(QualityRating,
                                        related_name = '+')
