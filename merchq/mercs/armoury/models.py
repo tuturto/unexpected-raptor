@@ -21,7 +21,7 @@ from django.db import models
 from mercs.forces.models import Force
 
 class MaintenanceModifier(models.Model):
-    name = models.CharField(100)
+    name = models.CharField(max_length = 100)
     description = models.TextField(max_length = 250)
     modifier = models.IntegerField(default = 0)
 

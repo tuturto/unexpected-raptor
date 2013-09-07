@@ -30,8 +30,8 @@ class Faction(models.Model):
 class StarSystem(models.Model):
 
     name = models.CharField(max_length = 100)
-    location_x = models.IntegerField(default = 0)
-    location_y = models.IntegerField(default = 0)
+    location_x = models.FloatField(default = 0)
+    location_y = models.FloatField(default = 0)
     faction = models.ForeignKey(Faction)
 
     def __unicode__(self):
@@ -52,7 +52,7 @@ class Planet(models.Model):
     system_position = models.IntegerField(default = 0)
     star_system = models.ForeignKey(StarSystem)
     gravity = models.FloatField(default = 0.0)
-    maintenance_modifier = models.ManyToManyField(MaintenanceModifier)
+    maintenance_modifiers = models.ManyToManyField(MaintenanceModifier)
 
     def __unicode__(self):
         return self.name
