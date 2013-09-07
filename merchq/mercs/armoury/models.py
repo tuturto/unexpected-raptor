@@ -76,6 +76,7 @@ class Vehicle(models.Model):
     active = models.BooleanField(default = True)
 
     quality_rating = models.ForeignKey(QualityRating)
+    location = models.ForeignKey('astrography.Planet')
 
     def __unicode__(self):
         return '{0} ({1})'.format(self.vehicle_name,

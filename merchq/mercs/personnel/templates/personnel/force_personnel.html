@@ -33,7 +33,11 @@
       <td>{{ person.rank }}</td>
       <td>{{ person.get_salary }}</td>
       <td><a href="/personnel/team/{{ person.team.id }}">{{ person.team.team_name }}</a></td>
-      <td><a href="/astrography/planet/{{ person.location.id }}">{{ person.location.name }}</a></td>
+      {% if person.location %}
+        <td><a href="/astrography/planet/{{ person.location.id }}">{{ person.location.name }}</a></td>
+      {% else %}
+        <td></td>
+      {% endif %}
     </tr>
 
   {% endfor %}

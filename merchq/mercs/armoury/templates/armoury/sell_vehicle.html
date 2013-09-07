@@ -35,6 +35,14 @@
   <td>Maintenance/d:</td>
   <td>{{ vehicle.maintenance }} minutes</td>
 </tr>
+<tr>
+  <td>Location:</td>
+  {% if vehicle.location %}
+    <td><a href="/astrography/planet/{{ vehicle.location.id }}">{{ vehicle.location.name }}</a></td>
+  {% else %}
+    <td></td>
+  {% endif %}
+</tr>
 
 </table>
 

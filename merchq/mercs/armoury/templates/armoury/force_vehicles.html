@@ -8,12 +8,14 @@
   <th>Name</th>
   <th>Weight</th>
   <th>Minutes/d</th>
+  <th>Location</th>
 </tr>
 
 {% for entry in force_vehicles %}
 
   <tr>
     <td>{{ entry.0 }}</td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -25,6 +27,11 @@
       <td><a href="/armoury/vehicle/{{ vehicle.id }}">{{ vehicle.vehicle_name }}</a></td>
       <td>{{ vehicle.vehicle_weight }}</td>
       <td>{{ vehicle.maintenance }}</td>
+      {% if vehicle.location %}
+        <td><a href="/astrography/planet/{{ vehicle.location.id }}">{{ vehicle.location.name }}</a></td>
+      {% else %}
+        <td></td>
+      {% endif %}
     </tr>
 
   {% endfor %}
@@ -33,6 +40,7 @@
     <td colspan="3"></td>
     <td>{{ entry.2 }}</td>
     <td>{{ entry.3 }}</td>
+    <td></td>
   </tr>
 
 {% endfor %}
@@ -40,6 +48,7 @@
   <tr>
     <td colspan="3"></td>
     <td>{{ maintenance }}</td>
+    <td></td>
   </tr>
 
 </table>

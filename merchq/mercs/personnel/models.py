@@ -71,7 +71,9 @@ class Person(models.Model):
     team = models.ForeignKey(Team,
                              null = True,
                              blank = True)
-    location = models.ForeignKey(Planet)
+    location = models.ForeignKey(Planet,
+                                 null = True,
+                                 blank = True)
 
     def get_salary(self):
         return (self.position.base_salary *
