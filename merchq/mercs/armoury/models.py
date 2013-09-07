@@ -20,6 +20,14 @@
 from django.db import models
 from mercs.forces.models import Force
 
+class MaintenanceModifier(models.Model):
+    name = models.CharField(100)
+    description = models.TextField(max_length = 250)
+    modifier = models.IntegerField(default = 0)
+
+    def __unicode__(self):
+        return self.name
+
 class QualityRating(models.Model):
     rating = models.CharField(max_length = 10)
     rating_name = models.CharField(max_length = 50)
