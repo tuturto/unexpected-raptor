@@ -37,6 +37,7 @@ def run_maintenance(force):
         team.remaining_maintenance = 480
 
     for vehicle in vehicles:
+        log('maintaining {0}'.format(vehicle), force)
         assigned_teams = [team for team in teams
                           if team.vehicle == vehicle]
 
@@ -51,13 +52,21 @@ def run_maintenance(force):
 
     log('Maintenance done', force)
 
+def modifiers(team, vehicle, force):
+    mods = vehicle.location.maintenance_modifiers.all()
+    total_modifier = sum([modifier.modifier for modifier in mods])
+    for modifier in mods:
+        log('modifier {0}: {1}'.format(modifier.name, modifier.modifier), force)
+
+    return total_modifier
+
 def _maintenance_with_team(team, vehicle, force):
     team.remaining_maintenance = team.remaining_maintenance - vehicle.maintenance
     skill_score = min([person.skill_set.filter(
                              skill_definition__skill_name = 'Technical')[0].skill_score
                        for person 
                        in team.person_set.all()])
-    tn = skill_score
+    tn = skill_score + modifiers(team, vehicle, force)
 
     roll = random.randint(1, 6) + random.randint(1, 6)
 
@@ -66,7 +75,7 @@ def _maintenance_with_team(team, vehicle, force):
 
 def _maintenance_without_team(vehicle, force):
     param = Parameter.objects.get(parameter_name = 'no team maintenance')
-    tn = param.integer_value
+    tn = param.integer_value + modifiers(None, vehicle, force)
 
     roll = random.randint(1, 6) + random.randint(1, 6)
 
