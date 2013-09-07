@@ -2,7 +2,15 @@
 
 {% block app_menu %}
 <a href="/personnel/">Overview</a> &nbsp; &nbsp; &nbsp; &nbsp;
-<a href="/personnel/hiring">Hiring</a> &nbsp; &nbsp; &nbsp; &nbsp;
+
+{% if force %}
+<a href="/personnel/{{force.id}}">{{force.force_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+{% endif %}
+
+{% if person %}
+<a href="/personnel/person/{{person.id}}">{{person.person_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+{% endif %}
+
 {% endblock %}
 
 

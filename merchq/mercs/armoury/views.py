@@ -82,6 +82,7 @@ def vehicle_details(request, vehicle_id):
         weight_class = None
 
     context = {'vehicle': vehicle,
+               'force': vehicle.owner,
                'weight_class': weight_class,
                'current_date': current_date}
 
@@ -98,6 +99,7 @@ def sell_vehicle(request, vehicle_id, confirmed = None):
         process.sell_vehicle(vehicle, price)
 
     context = {'vehicle': vehicle,
+               'force': vehicle.owner,
                'price': price,
                'confirmed': confirmed,
                'current_date': current_date}

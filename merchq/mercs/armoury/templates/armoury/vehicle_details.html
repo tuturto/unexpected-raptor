@@ -14,7 +14,11 @@
 </tr>
 <tr>
   <td>Owner:</td>
-  <td>{{ vehicle.owner }}</td>
+  {% if vehicle.owner %}
+    <td><a href="/armoury/{{vehicle.owner.id}}">{{vehicle.owner.force_name}}</a></td>
+  {% else %}
+    <td></td>
+  {% endif %}
 </tr>
 <tr>
   <td>Type:</td>

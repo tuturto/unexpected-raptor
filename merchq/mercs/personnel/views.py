@@ -66,6 +66,7 @@ def person_details(request, person_id):
     current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
     context = {'person': person,
+               'force': person.force,
                'current_date': current_date}
 
     return render(request, 'personnel/person_details.html', context)
