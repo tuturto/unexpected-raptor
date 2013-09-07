@@ -20,6 +20,7 @@
 from django.db import models
 import mercs.forces.models
 from mercs.armoury.models import Vehicle
+from mercs.astrography.models import Planet
 
 class Position(models.Model):
     position_name = models.CharField(max_length = 100)
@@ -70,6 +71,7 @@ class Person(models.Model):
     team = models.ForeignKey(Team,
                              null = True,
                              blank = True)
+    location = models.ForeignKey(Planet)
 
     def get_salary(self):
         return (self.position.base_salary *

@@ -10,12 +10,14 @@
   <th>Rank</th>
   <th>Salary</th>
   <th>Team</th>
+  <th>Location</th>
 </tr>
 
 {% for entry in force_personnel %}
 
   <tr>
     <td>{{ entry.0 }}</td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -31,6 +33,7 @@
       <td>{{ person.rank }}</td>
       <td>{{ person.get_salary }}</td>
       <td><a href="/personnel/team/{{ person.team.id }}">{{ person.team.team_name }}</a></td>
+      <td><a href="/astrography/planet/{{ person.location.id }}">{{ person.location.name }}</a></td>
     </tr>
 
   {% endfor %}
@@ -40,6 +43,7 @@
     <td>Sub-Total</td>
     <td>{{ entry.2 }}</td>
     <td></td>
+    <td></td>
   </tr>
 
 {% endfor %}
@@ -48,6 +52,7 @@
     <td colspan="3"></td>
     <td>Total</td>
     <td>{{ total_salary }}</td>
+    <td></td>
     <td></td>
   </tr>
 
