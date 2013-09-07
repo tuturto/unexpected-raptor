@@ -19,13 +19,10 @@
 
 from django.contrib import admin
 
-from mercs.armoury.models import VehicleType, WeightClass, SupportType
-from mercs.armoury.models import Vehicle, QualityRating, MaintenanceModifier
+from mercs.astrography.models import Faction, StarSystem, Star, Planet
 
-admin.site.register(VehicleType)
-admin.site.register(WeightClass)
-admin.site.register(SupportType)
-admin.site.register(Vehicle)
-admin.site.register(QualityRating)
-admin.site.register(MaintenanceModifier)
+admin.site.register(Faction)
+admin.site.register(StarSystem)
+admin.site.register(Star)
+admin.site.register(Planet)
 
