@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<div id="main_sub">
 <table>
 <tr>
   <th></th>
@@ -48,8 +49,14 @@
     <td></td>
   {% endif %}
 </tr>
-
 </table>
+</div>
+
+<div id="main_sub">
+<img src="/media/{{person.image}}" alt="{{person.person_name}}">
+</div>
+
+<div id="clear_float"></div>
 
 {% endblock %}
 

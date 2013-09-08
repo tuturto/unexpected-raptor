@@ -74,6 +74,7 @@ class Person(models.Model):
     location = models.ForeignKey(Planet,
                                  null = True,
                                  blank = True)
+    image = models.CharField(max_length = 100)
 
     def get_salary(self):
         return (self.position.base_salary *

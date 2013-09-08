@@ -96,6 +96,16 @@ text-decoration: none;
 color: #444444;
 }
 
+#main_sub {
+float: left;
+padding: 30px 0 0 40px;
+margin: 0;
+color: #444444;
+font-family: "Georgia";
+font-size: 13px; 
+line-height: 18px;
+}
+
 #footer {
 padding: 6px 40px 6px 40px;
 background: #d6d6d6; 
@@ -103,6 +113,10 @@ font-family: "Lucida Sans Unicode";
 color: #444444;
 font-size: 11px;
 text-align: right;
+}
+
+#clear_float {
+clear:both;
 }
 
 #footer a {
@@ -118,3 +132,4 @@ color: #666666;
 font-size:11px;
 color:#FFFFFF;
 }
+
