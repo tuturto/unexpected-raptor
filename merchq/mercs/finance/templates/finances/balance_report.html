@@ -3,10 +3,10 @@
 {% block content %}
 
 {% if month %}
-  <img src="/finances/balance_chart/{{force.id}}/{{year}}/{{month}}" alt="balance report"> 
+  <img src="{% url mercs.finance.balance_report_month force.id year month %}" alt="balance report"> 
   <p>{{year}}-{{month}} - {{force.force_name}}</p>
 {% else %}
-  <img src="/finances/balance_chart/{{force.id}}/{{year}}" alt="balance report"> 
+  <img src="{% url mercs.finance.balance_report_year force.id year %}" alt="balance report"> 
   <p>{{year}} - {{force.force_name}}</p>
 {% endif %}
 
@@ -16,21 +16,22 @@
 
 {% block sidebar %}
 
-<a href="/finances/reports/{{force.id}}/{{previous_year}}/">&lt;&lt;</a>
-&nbsp;&nbsp;<a href="/finances/reports/{{force.id}}/{{year}}/">{{year}}</a>&nbsp;&nbsp;
-<a href="/finances/reports/{{force.id}}/{{next_year}}/">&gt;&gt;</a>
+<a href="{% url mercs.finance.reports_year force.id previous_year %}">&lt;&lt;</a>&nbsp;&nbsp;
+<a href="{% url mercs.finance.reports_year force.id year %}">{{year}}</a>&nbsp;&nbsp;
+<a href="{% url mercs.finance.reports_year force.id next_year %}">&gt;&gt;</a>
 <br>
-<a href="/finances/reports/{{force.id}}/{{year}}/01">01</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/02">02</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/03">03</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/04">04</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/05">05</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/06">06</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/07">07</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/08">08</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/09">09</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/10">10</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/11">11</a>
-<a href="/finances/reports/{{force.id}}/{{year}}/12">12</a>
+<a href="{% url mercs.finance.reports_month force.id year '01' %}">01</a>
+<a href="{% url mercs.finance.reports_month force.id year '02' %}">02</a>
+<a href="{% url mercs.finance.reports_month force.id year '03' %}">03</a>
+<a href="{% url mercs.finance.reports_month force.id year '04' %}">04</a>
+<a href="{% url mercs.finance.reports_month force.id year '05' %}">05</a>
+<a href="{% url mercs.finance.reports_month force.id year '06' %}">06</a>
+<a href="{% url mercs.finance.reports_month force.id year '07' %}">07</a>
+<a href="{% url mercs.finance.reports_month force.id year '08' %}">08</a>
+<a href="{% url mercs.finance.reports_month force.id year '09' %}">09</a>
+<a href="{% url mercs.finance.reports_month force.id year '10' %}">10</a>
+<a href="{% url mercs.finance.reports_month force.id year '11' %}">11</a>
+<a href="{% url mercs.finance.reports_month force.id year '12' %}">12</a>
 
 {% endblock %}
+

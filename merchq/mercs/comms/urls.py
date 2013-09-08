@@ -24,7 +24,7 @@ from mercs.comms import views
 urlpatterns = patterns('',
     url(r'^$',
         views.index,
-        name='mercs.comms'),
+        name='mercs.comms.index'),
     url(r'^(?P<news_id>\d+)/$',
         views.news_entry,
         name='mercs.comms.news_entry'),

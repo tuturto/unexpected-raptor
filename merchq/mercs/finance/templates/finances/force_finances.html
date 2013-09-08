@@ -17,7 +17,7 @@
     <td>{{ entry.value }}</td>
     <td>{{ entry.note }}</td>
     {% if entry.invoice %}
-      <td><a href="/finances/invoice/{{ entry.invoice.id }}">#{{ entry.invoice.id }}</a></td>
+      <td><a href="{% url mercs.finance.invoice entry.invoice.id %}">#{{ entry.invoice.id }}</a></td>
     {% else %}
       <td></td>
     {% endif %}
@@ -37,6 +37,7 @@
 
 {% block sidebar %}
 
-<a href="/finances/reports/{{force.id}}">Reports</a>
+<a href="{% url mercs.finance.reports force.id %}">Reports</a>
 
 {% endblock %}
+
