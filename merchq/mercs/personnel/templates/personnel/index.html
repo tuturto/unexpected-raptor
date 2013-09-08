@@ -9,7 +9,7 @@
     </tr>
     {% for force in forces %}
         <tr>
-          <td><a href="/personnel/{{ force.id }}/">{{ force.force_name }}</a></td>
+          <td><a href="{% url mercs.personnel.force force.id %}">{{ force.force_name }}</a></td>
           <td>{{ force.personnel_count }}</td>
         </tr>
     {% endfor %}

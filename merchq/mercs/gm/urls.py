@@ -24,12 +24,12 @@ from mercs.gm import views
 urlpatterns = patterns('',
     url(r'^$',
         views.index,
-        name='mercs.gm'),
+        name='mercs.gm.index'),
     url(r'^log/$',
         views.gm_log,
         name='mercs.gm.log'),
     url(r'^cycle/$',
         views.gm_cycle,
-        name='mercs.gm.cycle'),
+        name='mercs.gm.cycle_action'),
 )
 

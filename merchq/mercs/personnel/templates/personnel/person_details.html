@@ -38,12 +38,12 @@
 </tr>
 <tr>
   <td>Team:</td>
-  <td><a href="/personnel/team/{{ person.team.id }}">{{ person.team.team_name }}</a></td>
+  <td><a href="">{{ person.team.team_name }}</a></td>
 </tr>
 <tr>
   <td>Location:</td>
   {% if person.location %}
-    <td><a href="/astrography/planet/{{ person.location.id }}">{{ person.location.name }}</a></td>
+    <td><a href="{% url mercs.astrography.planet person.location.id %}">{{ person.location.name }}</a></td>
   {% else %}
     <td></td>
   {% endif %}
@@ -54,6 +54,7 @@
 {% endblock %}
 
 {% block sidebar %}
-<a href="/personnel/person/fire/{{ person.id }}">Fire</a><br>
-<a href="/personnel/person/promote/{{ person.id }}">Promote</a><br>
+<a href="">Fire</a><br>
+<a href="">Promote</a><br>
 {% endblock %}
+

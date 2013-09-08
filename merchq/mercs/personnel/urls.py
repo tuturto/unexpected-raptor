@@ -24,12 +24,12 @@ from mercs.personnel import views
 urlpatterns = patterns('',
     url(r'^$',
         views.index,
-        name='mercs.personnel'),
+        name='mercs.personnel.index'),
     url(r'^(?P<force_id>\d+)/$',
         views.force_personnel,
-        name='mercs.personnel.force_personnel'),
+        name='mercs.personnel.force'),
     url(r'^person/(?P<person_id>\d+)/$',
         views.person_details,
-        name='mercs.personnel.person_details'),
+        name='mercs.personnel.person'),
 )
 

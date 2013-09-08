@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block app_menu %}
-<a href="/personnel/">Overview</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.personnel.index %}">Overview</a> &nbsp; &nbsp; &nbsp; &nbsp;
 
 {% if force %}
-<a href="/personnel/{{force.id}}">{{force.force_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.personnel.force force.id %}">{{force.force_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% endif %}
 
 {% if person %}
-<a href="/personnel/person/{{person.id}}">{{person.person_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.personnel.person person.id %}">{{person.person_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% endif %}
 
 {% endblock %}
