@@ -1,0 +1,31 @@
+{% extends "astrography/app_base.html" %}
+
+{% block content %}
+
+<table>
+  <tr>
+    <td>Name:</td>
+    <td>{{planet.name}}</td>
+  </tr>
+  <tr>
+    <td>System position:</td>
+    <td>{{planet.system_position}}</td>
+  </tr>
+  <tr>
+    <td>Gravity:</td>
+    <td>{{planet.gravity}}</td>
+  </tr>
+  <tr>
+    <td>Special notes:</td>
+  </tr>
+  {% for modifier in maintenance_modifiers %}
+    <tr>
+      <td></td>
+      <td>{{modifier.name}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+
+

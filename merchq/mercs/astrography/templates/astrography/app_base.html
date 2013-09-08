@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block app_menu %}
+
+{% if star_system %}
+<a href="/astrography/{{star_system.id}}">{{star_system.name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+{% endif %}
+
+{% if planet %}
+<a href="/astrography/planet/{{planet.id}}">{{planet.name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+{% endif %}
+
+{% endblock %}
+
