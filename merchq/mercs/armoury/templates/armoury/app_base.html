@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block app_menu %}
-<a href="/armoury/">Overview</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.armoury.index %}">Overview</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% if force %}
-<a href="/armoury/{{force.id}}">{{force.force_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.armoury.force_armoury force.id %}">{{force.force_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% endif %}
 {% if vehicle %}
-<a href="/armoury/vehicle/{{vehicle.id}}">{{vehicle.vehicle_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.armoury.vehicle vehicle.id %}">{{vehicle.vehicle_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% endif %}
 {% endblock %}
 

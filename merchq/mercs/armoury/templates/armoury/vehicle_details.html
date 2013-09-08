@@ -15,7 +15,7 @@
 <tr>
   <td>Owner:</td>
   {% if vehicle.owner %}
-    <td><a href="/armoury/{{vehicle.owner.id}}">{{vehicle.owner.force_name}}</a></td>
+    <td><a href="">{{vehicle.owner.force_name}}</a></td>
   {% else %}
     <td></td>
   {% endif %}
@@ -39,7 +39,7 @@
 <tr>
   <td>Location:</td>
   {% if vehicle.location %}
-    <td><a href="/astrography/planet/{{ vehicle.location.id }}">{{ vehicle.location.name }}</a></td>
+    <td><a href="{% url mercs.astrography.planet vehicle.location.id %}">{{ vehicle.location.name }}</a></td>
   {% else %}
     <td></td>
   {% endif %}
@@ -50,6 +50,7 @@
 {% endblock %}
 
 {% block sidebar %}
-<a href="/armoury/vehicle/sell/{{ vehicle.id }}">Sell</a><br>
-<a href="/armoury/vehicle/repair/{{ vehicle.id }}">Schedule for repair</a>
+<a href="{% url mercs.armoury.sell_vehicle vehicle.id %}">Sell</a><br>
+<a href="">Schedule for repair</a>
 {% endblock %}
+

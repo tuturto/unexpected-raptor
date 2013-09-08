@@ -22,8 +22,14 @@ from django.conf.urls import patterns, url
 from mercs.gm import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
-    url(r'^log/$', views.gm_log, name='gm_log'),
-    url(r'^cycle/$', views.gm_cycle, name='mercs.gm.gm_cycle'),
+    url(r'^$',
+        views.index,
+        name='mercs.gm'),
+    url(r'^log/$',
+        views.gm_log,
+        name='mercs.gm.log'),
+    url(r'^cycle/$',
+        views.gm_cycle,
+        name='mercs.gm.cycle'),
 )
 

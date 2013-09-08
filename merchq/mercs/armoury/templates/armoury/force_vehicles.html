@@ -24,11 +24,11 @@
   {% for vehicle in entry.1 %}
     <tr>
       <td></td>
-      <td><a href="/armoury/vehicle/{{ vehicle.id }}">{{ vehicle.vehicle_name }}</a></td>
+      <td><a href="{% url mercs.armoury.vehicle vehicle.id %}">{{ vehicle.vehicle_name }}</a></td>
       <td>{{ vehicle.vehicle_weight }}</td>
       <td>{{ vehicle.maintenance }}</td>
       {% if vehicle.location %}
-        <td><a href="/astrography/planet/{{ vehicle.location.id }}">{{ vehicle.location.name }}</a></td>
+        <td><a href="{% url mercs.astrography.planet vehicle.location.id %}">{{ vehicle.location.name }}</a></td>
       {% else %}
         <td></td>
       {% endif %}
