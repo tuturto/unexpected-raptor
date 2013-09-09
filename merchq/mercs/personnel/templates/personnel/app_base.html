@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block app_menu %}
-<a href="{% url mercs.personnel.index %}">Overview</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="{% url mercs.personnel.index %}">Personnel</a> &nbsp; &nbsp; &nbsp; &nbsp;
 
 {% if force %}
 <a href="{% url mercs.personnel.force force.id %}">{{force.force_name}}</a> &nbsp; &nbsp; &nbsp; &nbsp;
