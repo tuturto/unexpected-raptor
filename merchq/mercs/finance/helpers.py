@@ -39,6 +39,9 @@ def balance_report(force, year, month = None):
     params = Parameter.objects.filter(parameter_name = 'current date')
     current_date = params[0].date_value
 
+    transactions = Transaction.objects.filter(force = force,
+                                              date__lte = current_date).order_by('date')
+
     year = int(year)
     if month:
         month = int(month)
@@ -62,7 +65,10 @@ def balance_report(force, year, month = None):
     balances = []
 
     while running_date < end_date:
-        balances.append([running_date.isoformat(), balance(force, running_date)])
+        balances.append([running_date.isoformat(), 
+                         sum([transaction.value for transaction
+                              in transactions
+                              if transaction.date <= running_date])])
         running_date = running_date + datetime.timedelta(1)
 
     return balances
