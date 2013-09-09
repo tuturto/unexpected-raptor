@@ -23,7 +23,7 @@ from django.shortcuts import render, get_object_or_404
 from mercs.forces.models import Force
 from mercs.finance.models import Transaction, Invoice
 from mercs.common.models import Parameter
-from mercs.finance.helpers import balance
+from mercs.finance.helpers import balance, balance_report
 
 def index(request):
     forces = Force.objects.all()
@@ -80,7 +80,8 @@ def reports(request, force_id, year = None, month = None):
                'previous_year': year - 1,
                'next_year': year + 1,
                'month': month,
-               'current_date': current_date}
+               'current_date': current_date,
+               'balances': balance_report(force, year, month)}
 
     return render(request, 'finances/balance_report.html', context)
 

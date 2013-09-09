@@ -34,10 +34,7 @@ def balance(force, balance_date):
 
     return balance
 
-def balance_report(request, force_id, year, month = None):
-
-    image_width = 700
-    image_heigth = 400
+def balance_report(force, year, month = None):
 
     params = Parameter.objects.filter(parameter_name = 'current date')
     current_date = params[0].date_value
@@ -45,8 +42,6 @@ def balance_report(request, force_id, year, month = None):
     year = int(year)
     if month:
         month = int(month)
-
-    force = get_object_or_404(Force, id = force_id)
 
     if month:
         running_date = datetime.date(year, month, 1)
@@ -67,38 +62,8 @@ def balance_report(request, force_id, year, month = None):
     balances = []
 
     while running_date < end_date:
-        balances.append(balance(force, running_date))
+        balances.append([running_date.isoformat(), balance(force, running_date)])
         running_date = running_date + datetime.timedelta(1)
 
-    if month:
-        pixel_per_date = image_width / 31
-    else:
-        pixel_per_date = image_width / 366
-
-    max_balance = max(balances)
-
-    if max_balance:
-        pixel_per_credit = image_heigth / max_balance
-    else:
-        pixel_per_credit = 0
-
-    image = Image.new("RGB", (image_width, image_heigth), 'white')
-
-    draw = ImageDraw.Draw(image)
-    draw.line([0, 0, 0, image_heigth], fill = 'blue')
-    draw.line([0, image_heigth - 1, image_width, image_heigth - 1], fill = 'blue')
-
-    day_counter = 0
-    coords = []
-
-    for bal in balances:
-        day_counter = day_counter + 1
-        coords.append(int(day_counter * pixel_per_date))
-        coords.append(image_heigth - int(bal * pixel_per_credit))
-
-    draw.line(coords, fill = 'red')
-
-    response = HttpResponse(mimetype="image/png")
-    image.save(response, "PNG")
-    return response
+    return balances
 
