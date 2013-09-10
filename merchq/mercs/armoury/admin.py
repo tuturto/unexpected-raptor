@@ -21,6 +21,7 @@ from django.contrib import admin
 
 from mercs.armoury.models import VehicleType, WeightClass, SupportType
 from mercs.armoury.models import Vehicle, QualityRating, MaintenanceModifier
+from mercs.armoury.models import TechRating, Equipment
 
 admin.site.register(VehicleType)
 admin.site.register(WeightClass)
@@ -28,4 +29,6 @@ admin.site.register(SupportType)
 admin.site.register(Vehicle)
 admin.site.register(QualityRating)
 admin.site.register(MaintenanceModifier)
+admin.site.register(TechRating)
+admin.site.register(Equipment)
 

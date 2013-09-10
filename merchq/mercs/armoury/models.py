@@ -20,6 +20,14 @@
 from django.db import models
 from mercs.forces.models import Force
 
+class TechRating(models.Model):
+    rating = models.CharField(max_length = 10)
+    name = models.CharField(max_length = 50)
+
+    def __unicode__(self):
+        return '{0} ({1})'.format(self.rating,
+                                  self.name)
+
 class MaintenanceModifier(models.Model):
     name = models.CharField(max_length = 100)
     description = models.TextField(max_length = 250)
@@ -112,4 +120,15 @@ class MaintenanceCheck(models.Model):
     damage_amount = models.IntegerField(default = 0)
 
     destroyed = models.BooleanField(default = False)
+
+class Equipment(models.Model):
+
+    name = models.CharField(max_length = 100)
+    weight = models.FloatField(default = 0)
+    slots = models.IntegerField(default = 0)
+    base_price = models.IntegerField(default = 0)
+    tech_rating = models.ForeignKey(TechRating)
+
+    def __unicode__(self):
+        return self.name
 
