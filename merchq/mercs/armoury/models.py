@@ -28,6 +28,15 @@ class TechRating(models.Model):
         return '{0} ({1})'.format(self.rating,
                                   self.name)
 
+class Availability(models.Model):
+    code = models.CharField(max_length = 10)
+    name = models.CharField(max_length = 50)
+
+    def __unicode__(self):
+        return '{0} ({1})'.format(self.code,
+                                  self.name)
+        
+
 class MaintenanceModifier(models.Model):
     name = models.CharField(max_length = 100)
     description = models.TextField(max_length = 250)
@@ -128,6 +137,7 @@ class Equipment(models.Model):
     slots = models.IntegerField(default = 0)
     base_price = models.IntegerField(default = 0)
     tech_rating = models.ForeignKey(TechRating)
+    availability = models.ForeignKey(Availability)
 
     def __unicode__(self):
         return self.name
