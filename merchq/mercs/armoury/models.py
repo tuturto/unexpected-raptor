@@ -142,3 +142,9 @@ class Equipment(models.Model):
     def __unicode__(self):
         return self.name
 
+class Installation(models.Model):
+
+    equipment = models.ForeignKey(Equipment)
+    vehicle = models.ForeignKey(Vehicle)
+
+
