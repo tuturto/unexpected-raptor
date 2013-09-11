@@ -44,7 +44,16 @@
     <td></td>
   {% endif %}
 </tr>
-
+<tr>
+  <td>Components:</td>
+</tr>
+{% for inst in installations %}
+  <tr>
+    <td></td>
+    <td>{{inst.equipment.name}}</td>
+  </tr>
+{% endfor %}
+</tr>
 </table>
 
 {% endblock %}

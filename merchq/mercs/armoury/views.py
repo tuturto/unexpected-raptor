@@ -84,7 +84,8 @@ def vehicle_details(request, vehicle_id):
     context = {'vehicle': vehicle,
                'force': vehicle.owner,
                'weight_class': weight_class,
-               'current_date': current_date}
+               'current_date': current_date,
+               'installations': vehicle.installation_set.all()}
 
     return render(request, 'armoury/vehicle_details.html', context)
 
