@@ -22,7 +22,7 @@ from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 
 from mercs.forces.models import Force
-from mercs.armoury.models import VehicleType, Vehicle, WeightClass
+from mercs.armoury.models import VehicleType, Vehicle, WeightClass, Location
 from mercs.common.models import Parameter
 
 from mercs.armoury import process
@@ -71,6 +71,7 @@ def vehicle_details(request, vehicle_id):
 
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+    locations = Location.objects.all()
 
     weight_classes = WeightClass.objects.filter(vehicle_type = vehicle.vehicle_type,
                                                 lower_limit__lte = vehicle.vehicle_weight,
@@ -81,11 +82,21 @@ def vehicle_details(request, vehicle_id):
     else:
         weight_class = None
 
+    installations = vehicle.installation_set.all()
+    install_data = []
+
+    for location in locations:
+        new_data = []
+        new_data.append(location)
+        new_data.append([inst for inst in installations
+                         if inst.location == location])
+        install_data.append(new_data)
+
     context = {'vehicle': vehicle,
                'force': vehicle.owner,
                'weight_class': weight_class,
                'current_date': current_date,
-               'installations': vehicle.installation_set.all()}
+               'installations': install_data}
 
     return render(request, 'armoury/vehicle_details.html', context)
 

@@ -47,12 +47,24 @@
 <tr>
   <td>Components:</td>
 </tr>
-{% for inst in installations %}
+</table>
+
+{% for data in installations %}
+<div id="main_sub">
+<table>
   <tr>
-    <td></td>
-    <td>{{inst.equipment.name}}</td>
+    <td>{{data.0.name}}</td><td></td>
   </tr>
+  {% for item in data.1 %}
+    <tr>
+      <td></td><td>{{item.equipment.name}}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
 {% endfor %}
+<div id="clear_float" />
+
 </tr>
 </table>
 
