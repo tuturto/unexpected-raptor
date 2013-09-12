@@ -142,9 +142,21 @@ class Equipment(models.Model):
     def __unicode__(self):
         return self.name
 
+class Location(models.Model):
+
+    name = models.CharField(max_length = 50)
+
+    def __unicode__(self):
+        return self.name
+
 class Installation(models.Model):
 
     equipment = models.ForeignKey(Equipment)
     vehicle = models.ForeignKey(Vehicle)
+    location = models.ForeignKey(Location)
 
+    def __unicode__(self):
+        return '{0} {1} {2}'.format(self.vehicle,
+                                    self.location,
+                                    self.equipment)
 
