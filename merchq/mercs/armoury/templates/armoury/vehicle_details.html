@@ -53,11 +53,12 @@
 <div id="main_sub">
 <table>
   <tr>
-    <td>{{data.0.name}}</td><td></td>
+    <th>{{data.0.name}}</th>
   </tr>
   {% for item in data.1 %}
     <tr>
-      <td></td><td>{{item.equipment.name}}</td>
+      <td>{{item.equipment.name}}</td>
+      <td>{{item.equipment.slots}} / {{item.equipment.slots}}</td>
     </tr>
   {% endfor %}
 </table>
