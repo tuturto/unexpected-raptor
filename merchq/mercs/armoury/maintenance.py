@@ -39,7 +39,8 @@ def run_maintenance(force):
     for vehicle in vehicles:
         log('maintaining {0}'.format(vehicle), force)
         assigned_teams = [team for team in teams
-                          if team.vehicle == vehicle]
+                          if team.vehicle == vehicle
+                          and team.location() == vehicle.location]
 
         if assigned_teams:
             team = assigned_teams[0]

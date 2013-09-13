@@ -57,6 +57,14 @@ class Team(models.Model):
                                 blank = True,
                                 null = True)
 
+    def location(self):
+        locations = set([person.location for person in self.person_set.all()])
+
+        if len(locations) == 1:
+            return locations.pop()
+        else:
+            return None
+
     def __unicode__(self):
         return self.team_name
 
