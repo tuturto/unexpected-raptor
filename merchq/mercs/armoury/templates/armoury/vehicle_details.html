@@ -50,7 +50,12 @@
 </table>
 
 {% for data in installations %}
-<div id="main_sub">
+  {% if forloop.counter0|divisibleby:3 %}
+    <div id="clear_float" />
+    <div id="main_sub">
+  {% else %}
+    <div id="main_sub">
+  {% endif %}
 <table>
   <tr>
     <th>{{data.0.name}}</th>
@@ -58,7 +63,7 @@
   {% for item in data.1 %}
     <tr>
       <td>{{item.equipment.name}}</td>
-      <td>{{item.equipment.slots}} / {{item.equipment.slots}}</td>
+      <td>{{item.working_slots}} / {{item.equipment.slots}}</td>
     </tr>
   {% endfor %}
 </table>

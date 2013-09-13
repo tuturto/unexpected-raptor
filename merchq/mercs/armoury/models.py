@@ -154,6 +154,7 @@ class Installation(models.Model):
     equipment = models.ForeignKey(Equipment)
     vehicle = models.ForeignKey(Vehicle)
     location = models.ForeignKey(Location)
+    working_slots = models.IntegerField(default = 0)
 
     def __unicode__(self):
         return '{0} {1} {2}'.format(self.vehicle,
