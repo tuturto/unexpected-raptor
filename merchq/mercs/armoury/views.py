@@ -71,7 +71,7 @@ def vehicle_details(request, vehicle_id):
 
     vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
-    locations = Location.objects.all()
+    locations = Location.objects.filter(vehicle_type = vehicle.vehicle_type)
 
     weight_classes = WeightClass.objects.filter(vehicle_type = vehicle.vehicle_type,
                                                 lower_limit__lte = vehicle.vehicle_weight,
