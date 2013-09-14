@@ -30,28 +30,42 @@ def run_maintenance(force):
     log('Starting maintenance', force)
 
     vehicles = force.vehicle_set.all()
-
     teams = Team.objects.filter(person__force = force).distinct()
+
+    maintained_vehicles = []
 
     for team in teams:
         team.remaining_maintenance = 480
 
-    for vehicle in vehicles:
-        log('maintaining {0}'.format(vehicle), force)
-        assigned_teams = [team for team in teams
-                          if team.vehicle == vehicle
-                          and team.location() == vehicle.location]
-
-        if assigned_teams:
-            team = assigned_teams[0]
-            if team.remaining_maintenance >= vehicle.maintenance:
-                _maintenance_with_team(team, vehicle, force)
+    for team in teams:
+        if team.vehicle:
+            if not team.vehicle in maintained_vehicles:
+                log('{0} starting maintenance of {1}'.format(team, team.vehicle), force)
+                maintained_vehicles.append(team.vehicle)
             else:
-                _maintenance_without_team(vehicle, force)
+                log('{0} has already been maintained'.format(team.vehicle), force)
         else:
-            _maintenance_without_team(vehicle, force)
+            log('team {0} does not have a dedicated vehicle'.format(team), force)
+
+    for vehicle in vehicles:
+        if not vehicle in maintained_vehicles:
+            log('{0} does not have a dedicated team'.format(vehicle), force)
+            team = _get_free_maintenance_team(teams, vehicle)
+            if team:
+                log('{0} has spare time for maintenance'.format(team), force)
+                maintained_vehicles.append(vehicle)
+            else:
+                log('no spare teams left', force)
 
     log('Maintenance done', force)
+
+
+def _get_free_maintenance_team(teams, vehicle):
+    for team in teams:
+        if team.remaining_maintenance >= vehicle.maintenance:
+            return team
+
+    return None
 
 def modifiers(team, vehicle, force):
     mods = vehicle.location.maintenance_modifiers.all()
