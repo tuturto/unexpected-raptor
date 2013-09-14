@@ -37,21 +37,38 @@ def run_maintenance(force):
     for team in teams:
         team.remaining_maintenance = 480
 
-    team, vehicle = get_maintenance_unit(force, maintained_vehicles)
+    team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
     while vehicle:
-        do_maintenance(team, vehicle)
-        team, vehicle = get_maintenance_unit(force, maintained_vehicles)
+        do_maintenance(team, vehicle, maintained_vehicles, force)
+        team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
 
     log('Maintenance done', force)
 
-def get_maintenance_unit(force, maintained_vehicles):
+def get_maintenance_unit(vehicles, teams, maintained_vehicles):
     """
     Get vehicle and team to do a maintenance on it
     If there is no dedicated team or a free team, no team is assigned
     In that case the team is None
     In case there is no maintenance to be done, vehicle is None
     """
+    for vehicle in vehicles:
+        if not vehicle in maintained_vehicles:
+            matching_teams = [team for team in teams
+                              if team.vehicle == vehicle
+                              and team.location() == vehicle.location]
+            if matching_teams:
+                return matching_teams[0], vehicle
+
     return None, None
+
+def do_maintenance(team, vehicle, maintained_vehicles, force):
+    """
+    Run maintenance for vehicle
+    """
+    log('{0} doing maintenance for {1}'.format(team, vehicle), force)
+
+    if not vehicle in maintained_vehicles:
+        maintained_vehicles.append(vehicle)
 
 def modifiers(team, vehicle, force):
     """
