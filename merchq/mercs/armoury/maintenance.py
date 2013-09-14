@@ -37,121 +37,30 @@ def run_maintenance(force):
     for team in teams:
         team.remaining_maintenance = 480
 
-    for team in teams:
-        if team.vehicle:
-            if not team.vehicle in maintained_vehicles:
-                log('{0} starting maintenance of {1}'.format(team, team.vehicle), force)
-                maintained_vehicles.append(team.vehicle)
-            else:
-                log('{0} has already been maintained'.format(team.vehicle), force)
-        else:
-            log('team {0} does not have a dedicated vehicle'.format(team), force)
-
-    for vehicle in vehicles:
-        if not vehicle in maintained_vehicles:
-            log('{0} does not have a dedicated team'.format(vehicle), force)
-            team = _get_free_maintenance_team(teams, vehicle)
-            if team:
-                log('{0} has spare time for maintenance'.format(team), force)
-                maintained_vehicles.append(vehicle)
-            else:
-                log('no spare teams left', force)
+    team, vehicle = get_maintenance_unit(force, maintained_vehicles)
+    while vehicle:
+        do_maintenance(team, vehicle)
+        team, vehicle = get_maintenance_unit(force, maintained_vehicles)
 
     log('Maintenance done', force)
 
-
-def _get_free_maintenance_team(teams, vehicle):
-    for team in teams:
-        if team.remaining_maintenance >= vehicle.maintenance:
-            return team
-
-    return None
+def get_maintenance_unit(force, maintained_vehicles):
+    """
+    Get vehicle and team to do a maintenance on it
+    If there is no dedicated team or a free team, no team is assigned
+    In that case the team is None
+    In case there is no maintenance to be done, vehicle is None
+    """
+    return None, None
 
 def modifiers(team, vehicle, force):
+    """
+    Get sum of modifiers that might affect to maintenance
+    """
     mods = vehicle.location.maintenance_modifiers.all()
     total_modifier = sum([modifier.modifier for modifier in mods])
     for modifier in mods:
         log('modifier {0}: {1}'.format(modifier.name, modifier.modifier), force)
 
     return total_modifier
-
-def _maintenance_with_team(team, vehicle, force):
-    team.remaining_maintenance = team.remaining_maintenance - vehicle.maintenance
-    skill_score = min([person.skill_set.filter(
-                             skill_definition__skill_name = 'Technical')[0].skill_score
-                       for person 
-                       in team.person_set.all()])
-    tn = skill_score + modifiers(team, vehicle, force)
-
-    roll = random.randint(1, 6) + random.randint(1, 6)
-
-    _maintenance_result(team, vehicle, force, roll, tn)
-       
-
-def _maintenance_without_team(vehicle, force):
-    param = Parameter.objects.get(parameter_name = 'no team maintenance')
-    tn = param.integer_value + modifiers(None, vehicle, force)
-
-    roll = random.randint(1, 6) + random.randint(1, 6)
-
-    _maintenance_result(None, vehicle, force, roll, tn)
-        
-
-def _maintenance_result(team, vehicle, force, roll, target_number):
-    margin = roll - target_number
-
-    if margin < 0:
-        if team:
-            log('Maintenance for vehicle {0} by team {1} failed with margin {2}'.format(vehicle, 
-                                                                                        team,
-                                                                                        margin), force)
-        else:
-            log('Maintenance for vehicle {0} without team failed with margin {1}'.format(vehicle,
-                                                                                         margin), force)
-    else:
-        if team:
-            log('Maintenance for vehicle {0} by team {1} succesful with margin {2}'.format(vehicle,
-                                                                                           team,
-                                                                                           margin), force)
-        else:
-            log('Maintenance for vehicle {0} without team succesful with margin {1}'.format(vehicle,
-                                                                                            margin), force)
-
-    _maintenance_check(team, vehicle, force, margin)
-
-def _maintenance_check(team, vehicle, force, margin):
-    checks = MaintenanceCheck.objects.filter(margin = margin,
-                                             quality_rating = vehicle.quality_rating)
-
-    if checks:
-        check = checks[0]
-    
-        _report_change_in_quality_rating(vehicle, check)
-        vehicle.quality_rating = check.new_quality_rating
-
-        vehicle.save()
-    else:
-        if margin < 0:
-            checks = MaintenanceCheck.objects.filter(quality_rating = vehicle.quality_rating,
-                                                     lower_limit = True)
-
-            if checks:
-                check = checks[0]
-                _report_change_in_quality_rating(vehicle, check)
-                vehicle.quality_rating = check.new_quality_rating
-        elif margin > 0:
-            checks = MaintenanceCheck.objects.filter(quality_rating = vehicle.quality_rating,
-                                                     upper_limit = True)
-
-            if checks:
-                check = checks[0]
-                _report_change_in_quality_rating(vehicle, check)
-                vehicle.quality_rating = check.new_quality_rating
-
-def _report_change_in_quality_rating(vehicle, check):
-    if vehicle.quality_rating != check.new_quality_rating:
-        log('quality of vehicle {0} has changed from {1} to {2}'.format(vehicle,
-                                                                        vehicle.quality_rating,
-                                                                        check.new_quality_rating),
-            vehicle.owner)
 
