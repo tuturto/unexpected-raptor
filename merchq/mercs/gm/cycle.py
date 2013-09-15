@@ -18,6 +18,7 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from mercs.armoury.maintenance import run_maintenance
+from mercs.personnel.models import Team
 from mercs.gm.helpers import log
 
 def run_cycle(force):
@@ -26,7 +27,7 @@ def run_cycle(force):
     """
     log('Running a cycle for force {0}'.format(force.force_name), force)
 
-    run_maintenance(force)
+    run_maintenance(force, Team, log)
 
     log('Cycle finished for force {0}'.format(force.force_name), force)
 

@@ -17,13 +17,9 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from mercs.armoury.models import MaintenanceCheck
-from mercs.personnel.models import Person, Team
-from mercs.common.models import Parameter
-from mercs.gm.helpers import log
 import random
 
-def run_maintenance(force):
+def run_maintenance(force, Team, log):
     """
     run repair/maintenance cycle for a force
     """
@@ -39,7 +35,7 @@ def run_maintenance(force):
 
     team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
     while vehicle:
-        do_maintenance(team, vehicle, maintained_vehicles, force)
+        do_maintenance(team, vehicle, maintained_vehicles, force, log)
         team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
 
     log('Maintenance done', force)
@@ -55,22 +51,32 @@ def get_maintenance_unit(vehicles, teams, maintained_vehicles):
         if not vehicle in maintained_vehicles:
             matching_teams = [team for team in teams
                               if team.vehicle == vehicle
-                              and team.location() == vehicle.location]
+                              and team.location() == vehicle.location
+                              and team.remaining_maintenance >= vehicle.maintenance]
+            if matching_teams:
+                return matching_teams[0], vehicle
+
+            matching_teams = [team for team in teams
+                              if team.vehicle in maintained_vehicles
+                              and team.location() == vehicle.location
+                              and team.remaining_maintenance >= vehicle.maintenance]
             if matching_teams:
                 return matching_teams[0], vehicle
 
     return None, None
 
-def do_maintenance(team, vehicle, maintained_vehicles, force):
+def do_maintenance(team, vehicle, maintained_vehicles, force, log):
     """
     Run maintenance for vehicle
     """
     log('{0} doing maintenance for {1}'.format(team, vehicle), force)
 
+    team.remaining_maintenance = team.remaining_maintenance - vehicle.maintenance
+
     if not vehicle in maintained_vehicles:
         maintained_vehicles.append(vehicle)
 
-def modifiers(team, vehicle, force):
+def modifiers(team, vehicle, force, log):
     """
     Get sum of modifiers that might affect to maintenance
     """
