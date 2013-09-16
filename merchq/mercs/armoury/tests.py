@@ -17,5 +17,27 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-pass
+from mercs.armoury.maintenance import *
+from mercs.armoury.models import *
+from mercs.personnel.models import *
+
+import unittest
+
+class MaintenanceTests(unittest.TestCase):
+
+    def test_get_assigned_maintenance_team(self):
+        """
+        the dedicated maintenance team is always preferred
+        """
+        vehicles = []
+
+        maintenance_team = None
+
+        teams = [maintenance_team]
+        maintained_vehicles = []
+
+        team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
+
+        assert team == maintenance_team
+        assert False
 
