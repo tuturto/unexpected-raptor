@@ -20,6 +20,8 @@
 from mercs.armoury.maintenance import *
 from mercs.armoury.models import *
 from mercs.personnel.models import *
+from mercs.armoury.builders import *
+from mercs.personnel.builders import *
 
 import unittest
 
@@ -29,15 +31,32 @@ class MaintenanceTests(unittest.TestCase):
         """
         the dedicated maintenance team is always preferred
         """
-        vehicles = []
+        type_vehicle = (VehicleTypeBuilder()
+                            .build_and_save())
+
+        merc_force = (ForceBuilder()
+                            .build_and_save())
+
+        secret_base = (PlanetBuilder()
+                            .build_and_save())
+
+        vehicle = (VehicleBuilder()
+                    .with_type(type_vehicle)
+                    .with_maintenance(30)
+                    .with_owner(merc_force)
+                    .with_location(secret_base)
+                    .build_and_save())
+
+        vehicles = [vehicle]
 
         maintenance_team = None
+        random_team = None
 
-        teams = [maintenance_team]
+        teams = [random_team,
+                 maintenance_team]
         maintained_vehicles = []
 
         team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
 
         assert team == maintenance_team
-        assert False
 
