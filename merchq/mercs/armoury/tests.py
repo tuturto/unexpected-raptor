@@ -49,8 +49,13 @@ class MaintenanceTests(unittest.TestCase):
 
         vehicles = [vehicle]
 
-        maintenance_team = None
-        random_team = None
+        maintenance_team = (TeamBuilder()
+                                .with_assigned_vehicle(vehicle)
+                                .with_skills_for(vehicle)
+                                .build_and_save())
+        random_team = (TeamBuilder()
+                            .with_skills_for(vehicle)
+                            .build_and_save())
 
         teams = [random_team,
                  maintenance_team]
@@ -58,5 +63,5 @@ class MaintenanceTests(unittest.TestCase):
 
         team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
 
-        assert team == maintenance_team
+        assert_that(team, is_(equal_to(maintenance_team)))
 
