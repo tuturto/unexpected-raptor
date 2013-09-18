@@ -1,5 +1,39 @@
 {% extends "armoury/app_base.html" %}
 
+{% block html_head %}
+
+<script src={{STATIC_URL}}jquery-2.0.3.min.js></script>
+
+<script>
+function generateBoxes(maxval, currval, node) {
+    for (var i = 0; i < maxval; i++) {
+        if (i < currval) {
+            if (currval < maxval) {
+                node.append($("<span class='hp_colourbox red'></span>"));
+            }
+            else {            
+                node.append($("<span class='hp_colourbox green'></span>"));
+            }
+        }
+        else {
+            node.append($("<span class='hp_colourbox'></span>"));
+        }
+    }
+}
+
+function doBoxes() {
+{% for data in installations %}
+  {% for item in data.1 %}
+      generateBoxes({{item.equipment.slots}},{{item.working_slots}}, $("#hp_container_{{item.id}}"));
+  {% endfor %}
+{% endfor %}
+}
+
+$(window).load(doBoxes);
+</script>
+
+{% endblock %}
+
 {% block content %}
 
 <table>
@@ -63,7 +97,7 @@
   {% for item in data.1 %}
     <tr>
       <td>{{item.equipment.name}}</td>
-      <td>{{item.working_slots}} / {{item.equipment.slots}}</td>
+      <td><div id="hp_container_{{item.id}}"></div></td>
     </tr>
   {% endfor %}
 </table>
@@ -73,6 +107,8 @@
 
 </tr>
 </table>
+
+
 
 {% endblock %}
 
