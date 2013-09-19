@@ -3,33 +3,14 @@
 {% block html_head %}
 
 <script src={{STATIC_URL}}jquery-2.0.3.min.js></script>
+<script src={{STATIC_URL}}raptor.js></script>
 
 <script>
-function generateBoxes(maxval, currval, node) {
-    for (var i = 0; i < maxval; i++) {
-        if (i < currval) {
-            if (currval <= Math.floor(maxval / 3)) {
-                node.append($("<span class='hp_colourbox red'></span>"));
-            }
-            else {
-                if (currval <= Math.floor(maxval / 3 * 2)) {
-                    node.append($("<span class='hp_colourbox yellow'></span>"));
-                }
-                else {
-                    node.append($("<span class='hp_colourbox green'></span>"));
-                }
-            }
-        }
-        else {
-            node.append($("<span class='hp_colourbox'></span>"));
-        }
-    }
-}
 
 function doBoxes() {
 {% for data in installations %}
   {% for item in data.1 %}
-      generateBoxes({{item.equipment.slots}},{{item.working_slots}}, $("#hp_container_{{item.id}}"));
+      raptor.generateBoxes({{item.equipment.slots}},{{item.working_slots}}, $("#hp_container_{{item.id}}"));
   {% endfor %}
 {% endfor %}
 }
