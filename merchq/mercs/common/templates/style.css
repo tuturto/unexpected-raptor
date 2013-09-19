@@ -133,3 +133,30 @@ font-size:11px;
 color:#FFFFFF;
 }
 
+span.hp_colourbox
+{
+    margin-top: 2px;
+    margin-right: 0px;
+    display: inline-block;
+    width: 6px;
+    height: 12px;
+    border-radius: 6px;
+    border: 1px solid Gray;
+    background-color: Gray;
+}
+
+span.hp_colourbox.green
+{
+    background-color: LightGreen;
+}
+
+span.hp_colourbox.yellow
+{
+    background-color: Yellow;
+}
+
+span.hp_colourbox.red
+{
+    background-color: Salmon;
+}
+

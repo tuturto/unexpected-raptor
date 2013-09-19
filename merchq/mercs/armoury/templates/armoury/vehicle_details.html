@@ -8,11 +8,16 @@
 function generateBoxes(maxval, currval, node) {
     for (var i = 0; i < maxval; i++) {
         if (i < currval) {
-            if (currval < maxval) {
+            if (i < Math.floor(maxval / 3)) {
                 node.append($("<span class='hp_colourbox red'></span>"));
             }
-            else {            
-                node.append($("<span class='hp_colourbox green'></span>"));
+            else {
+                if (i < Math.floor(maxval / 3 * 2)) {
+                    node.append($("<span class='hp_colourbox yellow'></span>"));
+                }
+                else {
+                    node.append($("<span class='hp_colourbox green'></span>"));
+                }
             }
         }
         else {
