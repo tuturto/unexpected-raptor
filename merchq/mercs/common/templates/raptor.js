@@ -3,6 +3,10 @@ window.raptor = (function () {
     var raptor = {
     
         generateBoxes: function (maxval, currval, node) {
+            if (maxval > 10) {
+                currval = currval / maxval * 10;
+                maxval = 10;
+            }
             for (var i = 0; i < maxval; i++) {
                 if (i < currval) {
                     if (currval <= Math.floor(maxval / 3)) {

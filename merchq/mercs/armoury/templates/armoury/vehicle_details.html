@@ -10,7 +10,11 @@
 function doBoxes() {
 {% for data in installations %}
   {% for item in data.1 %}
-      raptor.generateBoxes({{item.equipment.slots}},{{item.working_slots}}, $("#hp_container_{{item.id}}"));
+      {% if item.max_slots %}
+        raptor.generateBoxes({{item.max_slots}},{{item.working_slots}}, $("#hp_container_{{item.id}}"));
+      {% else %}
+        raptor.generateBoxes({{item.equipment.slots}},{{item.working_slots}}, $("#hp_container_{{item.id}}"));
+      {% endif %}
   {% endfor %}
 {% endfor %}
 }
