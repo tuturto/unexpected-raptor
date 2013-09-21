@@ -23,6 +23,7 @@ from mercs.personnel.models import *
 from mercs.armoury.builders import *
 from mercs.forces.builders import *
 from mercs.personnel.builders import *
+from mercs.astrography.builders import *
 
 import unittest
 
