@@ -63,5 +63,5 @@ class MaintenanceTests(unittest.TestCase):
 
         team, vehicle = get_maintenance_unit(vehicles, teams, maintained_vehicles)
 
-        assert_that(team, is_(equal_to(maintenance_team)))
+        assert team == maintenance_team
 
