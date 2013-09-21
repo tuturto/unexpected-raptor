@@ -138,6 +138,7 @@ class Equipment(models.Model):
     base_price = models.IntegerField(default = 0)
     tech_rating = models.ForeignKey(TechRating)
     availability = models.ForeignKey(Availability)
+    repairable = models.BooleanField(default = True)
 
     def __unicode__(self):
         return self.name
