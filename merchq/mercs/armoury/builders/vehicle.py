@@ -17,5 +17,28 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from .vehicle import VehicleTypeBuilder
+from mercs.armoury.models import VehicleType
+
+class VehicleTypeBuilder(object):
+
+    def __init__(self):
+        super(VehicleTypeBuilder, self).__init__()
+
+        self.type_name = 'generic vehicle'
+
+    def with_name(self, type_name):
+        self.type_name = type_name
+        return self
+
+    def build(self):
+        new_type = VehicleType()
+        new_type.type_name = self.type_name
+
+        return new_type
+
+    def build_and_save(self):
+        new_type = self.build()
+        new_type.save()
+
+        return new_type
 
