@@ -17,7 +17,7 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from mercs.armoury.models import VehicleType
+from mercs.armoury.models import VehicleType, Vehicle
 
 class VehicleTypeBuilder(object):
 
@@ -41,4 +41,43 @@ class VehicleTypeBuilder(object):
         new_type.save()
 
         return new_type
+
+class VehicleBuilder(object):
+
+    def __init__(self):
+        super(VehicleBuilder, self).__init__()
+
+        self.vehicle_name = 'random vehicle'
+        self.vehicle_type = VehicleTypeBuilder().build()
+        self.vehicle_weight = 50
+
+        self.maintenance = 30
+    
+        self.support_type = SupportTypeBuilder().build()
+        self.owner = ForceBuilder().build()
+        self.base_price = 5000000
+        self.active = True
+
+        self.quality_rating = QualityRatingBuilder().build()
+        self.location = PlanetBuilder().build()
+
+    def build(self):
+        new_vehicle = Vehicle()
+        new_vehicle.vehicle_name = self.vehicle_name
+        new_vehicle.vehicle_type = self.vehicle_type
+        new_vehicle.vehicle_weight = self.vehicle_weight
+        new_vehicle.maintenance = self.maintenance
+        new_vehicle.support_type = self.support_type
+        new_vehicle.owner = self.owner
+        new_vehicle.base_price = self.base_price
+        new_vehicle.active = self.active
+        new_vehicle.quality_rating = self.quality_rating
+        new_vehicle.location = self.location
+
+        return new_vehicle
+
+    def build_and_save(self):
+        new_vehicle = self.build()
+        new_vehicle.save()
+        return new_vehicle
 
