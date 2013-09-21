@@ -21,6 +21,7 @@ from mercs.armoury.maintenance import *
 from mercs.armoury.models import *
 from mercs.personnel.models import *
 from mercs.armoury.builders import *
+from mercs.forces.builders import *
 from mercs.personnel.builders import *
 
 import unittest
