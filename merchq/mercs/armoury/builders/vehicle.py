@@ -18,6 +18,7 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from mercs.armoury.models import VehicleType, Vehicle, SupportType
+from mercs.forces.builders import ForceBuilder
 
 class SupportTypeBuilder(object):
 
