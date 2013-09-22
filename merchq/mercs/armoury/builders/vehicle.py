@@ -18,7 +18,33 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from mercs.armoury.models import VehicleType, Vehicle, SupportType
+from mercs.armoury.models import QualityRating
 from mercs.forces.builders import ForceBuilder
+from mercs.astrography.builders import PlanetBuilder
+
+class QualityRatingBuilder(object):
+
+    def __init__(self):
+        super(QualityRatingBuilder, self).__init__()
+
+        self.rating = 'average'
+        self.rating_name = 'just an average rating'
+        self.cost_modifier = 1
+
+    def build(self):
+        new_rating = QualityRating()
+
+        new_rating.rating = self.rating
+        new_rating.rating_name = self.rating_name
+        new_rating.cost_modifier = self.cost_modifier
+
+        return new_rating
+
+    def build_and_save(self):
+        new_rating = self.build()
+        new_rating.save()
+
+        return new_rating
 
 class SupportTypeBuilder(object):
 
@@ -80,6 +106,22 @@ class VehicleBuilder(object):
 
         self.quality_rating = QualityRatingBuilder().build()
         self.location = PlanetBuilder().build()
+
+    def with_type(self, vehicle_type):
+        self.vehicle_type = vehicle_type
+        return self
+
+    def with_maintenance(self, maintenance):
+        self.maintenance = maintenance
+        return self
+
+    def with_owner(self, owner):
+        self.owner = owner
+        return self
+
+    def with_location(self, location):
+        self.location = location
+        return self
 
     def build(self):
         new_vehicle = Vehicle()
