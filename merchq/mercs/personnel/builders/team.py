@@ -17,7 +17,9 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from mercs.personnel.models import Person, Team
+from mercs.personnel.models import Team
+from mercs.personnel.builders.person import PersonBuilder
+from mercs.astrography.builders import PlanetBuilder
 
 class TeamBuilder(object):
 
@@ -26,15 +28,29 @@ class TeamBuilder(object):
 
         self.team_name = 'generic team'
         self.vehicle = None
+        self.remaining_maintenance = 480
+        self.member_count = 7
+
+        self.location = PlanetBuilder().build()
 
     def with_assigned_vehicle(self, vehicle):
         self.vehicle = vehicle
+        return self
+
+    def with_location(self, location):
+        self.location = location
         return self
 
     def build(self):
         new_team = Team()
         new_team.team_name = self.team_name
         new_team.vehicle = self.vehicle
+        new_team.remaining_maintenance = self.remaining_maintenance
+
+        for i in xrange(self.member_count):
+            member = (PersonBuilder()
+                        .with_team(new_team)
+                        .build())
 
         return new_team
 
