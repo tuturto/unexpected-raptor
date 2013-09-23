@@ -18,6 +18,7 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from mercs.personnel.models import Position, Person, SkillLevel, Rank
+from mercs.forces.builders import ForceBuilder
 
 class PersonBuilder(object):
 
@@ -90,4 +91,24 @@ class SkillLevelBuilder(object):
         new_level.save()
 
         return new_level
+
+class RankBuilder(object):
+
+    def __init__(self):
+        super(RankBuilder, self).__init__()
+
+        self.rank_name = 'generic rank'
+        self.salary_multiplier = 1
+
+    def build(self):
+        new_rank = Rank()
+        new_rank.rank_name = self.rank_name
+        new_rank.salary_multiplier = self.salary_multiplier
+        return new_rank
+
+    def build_and_save(self):
+        new_rank = self.build()
+        new_rank.save()
+
+        return new_rank
 
