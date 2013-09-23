@@ -22,7 +22,12 @@ window.raptor = (function () {
                     }
                 }
                 else {
-                    node.append($("<span class='hp_colourbox'></span>"));
+                    if (currval == 0) {
+			node.append($("<span class='hp_colourbox black'></span>"));
+		    }
+		    else {
+			node.append($("<span class='hp_colourbox'></span>"));
+		    }
                 }
             }
         }

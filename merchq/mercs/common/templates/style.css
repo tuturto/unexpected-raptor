@@ -142,7 +142,7 @@ span.hp_colourbox
     height: 12px;
     border-radius: 6px;
     border: 1px solid Gray;
-    background-color: Gray;
+    background-color: #CCCCCC;
 }
 
 span.hp_colourbox.green
@@ -160,3 +160,7 @@ span.hp_colourbox.red
     background-color: Salmon;
 }
 
+span.hp_colourbox.black
+{
+    background-color: #777;
+}

@@ -53,10 +53,8 @@ class MaintenanceTests(unittest.TestCase):
 
         maintenance_team = (TeamBuilder()
                                 .with_assigned_vehicle(vehicle)
-                                .with_skills_for(vehicle)
                                 .build())
         random_team = (TeamBuilder()
-                            .with_skills_for(vehicle)
                             .build())
 
         teams = [random_team,
