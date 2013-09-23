@@ -17,5 +17,29 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from .team import TeamBuilder
+from mercs.personnel.models import Person, Team
+
+class TeamBuilder(object):
+
+    def __init__(self):
+        super(TeamBuilder, self).__init__()
+
+        self.team_name = 'generic team'
+        self.vehicle = None
+
+    def with_assigned_vehicle(self, vehicle):
+        self.vehicle = vehicle
+        return self
+
+    def build(self):
+        new_team = Team()
+        new_team.team_name = self.team_name
+        new_team.vehicle = self.vehicle
+
+        return new_team
+
+    def build_and_save(self):
+        new_team = self.build()
+        new_team.save()
+        return new_team
 
