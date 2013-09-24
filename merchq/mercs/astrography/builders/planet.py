@@ -57,6 +57,7 @@ class StarSystemBuilder(object):
 
     def build_and_save(self):
         new_system = self.build()
+        new_system.faction.save()
         new_system.save()
         return new_system
 

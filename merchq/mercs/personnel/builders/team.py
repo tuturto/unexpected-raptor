@@ -48,8 +48,9 @@ class TeamBuilder(object):
         new_team.remaining_maintenance = self.remaining_maintenance
 
         for i in xrange(self.member_count):
-            member = (PersonBuilder()
+            member = (PersonBuilder(self)
                         .with_team(new_team)
+                        .with_location(self.location)
                         .build())
 
         return new_team

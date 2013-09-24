@@ -19,10 +19,11 @@
 
 from mercs.personnel.models import Position, Person, SkillLevel, Rank
 from mercs.forces.builders import ForceBuilder
+from mercs.astrography.builders import PlanetBuilder
 
 class PersonBuilder(object):
 
-    def __init__(self):
+    def __init__(self, team_builder):
         super(PersonBuilder, self).__init__()
 
         self.person_name = 'generic person'
@@ -30,9 +31,17 @@ class PersonBuilder(object):
         self.skill_level = SkillLevelBuilder().build()
         self.rank = RankBuilder().build()
         self.force = ForceBuilder().build()
-        self.team = TeamBuilder().build()
         self.location = PlanetBuilder().build()
         self.image = 'generic image'
+
+
+    def with_team(self, team):
+        self.team = team
+        return self
+
+    def with_location(self, location):
+        self.location = location
+        return self
 
     def build(self):
         new_person = Person()

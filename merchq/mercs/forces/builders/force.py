@@ -39,7 +39,7 @@ class ForceBuilder(object):
     def build_and_save(self):
         new_force = self.build()
 
-        new.force.save()
+        new_force.save()
 
         return new_force
 

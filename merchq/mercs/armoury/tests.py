@@ -34,30 +34,30 @@ class MaintenanceTests(unittest.TestCase):
         the dedicated maintenance team is always preferred
         """
         type_vehicle = (VehicleTypeBuilder()
-                            .build())
+                            .build_and_save())
 
         merc_force = (ForceBuilder()
-                            .build())
+                            .build_and_save())
 
         secret_base = (PlanetBuilder()
-                            .build())
+                            .build_and_save())
 
         vehicle = (VehicleBuilder()
                     .with_type(type_vehicle)
                     .with_maintenance(30)
                     .with_owner(merc_force)
                     .with_location(secret_base)
-                    .build())
+                    .build_and_save())
 
         vehicles = [vehicle]
 
         maintenance_team = (TeamBuilder()
                                 .with_assigned_vehicle(vehicle)
                                 .with_location(secret_base)
-                                .build())
+                                .build_and_save())
         random_team = (TeamBuilder()
                             .with_location(secret_base)
-                            .build())
+                            .build_and_save())
 
         teams = [random_team,
                  maintenance_team]
