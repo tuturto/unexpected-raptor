@@ -1,8 +1,9 @@
 {% extends "gm/app_base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 
-<table>
+<table id="log_table">
 <tr>
   <th></th><th></th><th></th>
 </tr>
@@ -17,6 +18,9 @@
 {% endfor %}
 
 </table>
+
+<script type="application/dart" src={% static "gm.dart" %}></script>
+<script src={% static "dart.js" %}></script>
 
 {% endblock %}
 

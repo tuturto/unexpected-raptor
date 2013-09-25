@@ -24,6 +24,7 @@ from mercs.gm.cycle import run_cycle
 from mercs.gm.models import GMLogEntry
 from mercs.common.models import Parameter
 import datetime
+import json
 
 def index(request):
 
@@ -61,4 +62,21 @@ def gm_cycle(request):
                'current_date': param.date_value}
 
     return render(request, 'gm/log.html', context)
+
+def log_entries(request, year, month):
+
+    response_data = {}
+    response_data['entries'] = []
+
+    entry = {}
+    entry['entry_date'] = '3068-03-21'
+    entry['text'] = 'Test entry'
+    response_data['entries'].append(entry)
+
+    entry = {}
+    entry['entry_date'] = '3068-03-21'
+    entry['text'] = '2nd test entry'
+    response_data['entries'].append(entry)
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 
