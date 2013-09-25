@@ -18,6 +18,7 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from mercs.astrography.models import Planet, StarSystem, Faction
+from django.db.models.signals import pre_save, post_save
 
 class FactionBuilder(object):
 
