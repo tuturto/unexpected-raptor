@@ -63,20 +63,20 @@ def gm_cycle(request):
 
     return render(request, 'gm/log.html', context)
 
-def log_entries(request, year, month):
+def log_entries(request, year = None, month = None):
+
+    current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
+
+    log = GMLogEntry.objects.filter(entry_date = current_date)
 
     response_data = {}
     response_data['entries'] = []
 
-    entry = {}
-    entry['entry_date'] = '3068-03-21'
-    entry['text'] = 'Test entry'
-    response_data['entries'].append(entry)
-
-    entry = {}
-    entry['entry_date'] = '3068-03-21'
-    entry['text'] = '2nd test entry'
-    response_data['entries'].append(entry)
-
+    for log_entry in log:  
+        entry = {}
+        entry['entry_date'] = str(log_entry.entry_date)
+        entry['text'] = str(log_entry.text)
+        response_data['entries'].append(entry)
+    
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
