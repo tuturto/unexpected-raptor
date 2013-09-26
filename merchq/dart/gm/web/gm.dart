@@ -7,17 +7,15 @@ void main() {
 }
 
 void loadData() {
-
-  var url;
   
   loadConfig('/static/config.yaml').then(
       (Map config) {
-        url = config["myServerUrl"] + "/gm/log_entries";
+        var url = config["myServerUrl"] + "/gm/log_entries";
         var request = HttpRequest.getString(url).then(onDataLoaded);
       }, 
       onError: (error) => loadConfig().then(
           (Map config) {
-            url = config["myServerUrl"] + "/gm/log_entries";
+            var url = config["myServerUrl"] + "/gm/log_entries";
             var request = HttpRequest.getString(url).then(onDataLoaded);
           }, 
           onError: (error) => print(error)));
