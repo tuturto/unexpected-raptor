@@ -1,3 +1,6 @@
 build
 build~
+web/gm.dart.js.deps
+web/gm.dart.js.map
+web/precompiled.js
 
