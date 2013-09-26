@@ -1,17 +1,26 @@
 import 'dart:html';
 import 'dart:json';
+import 'package:dart_config/default_browser.dart';
 
 void main() {
   loadData();
 }
 
 void loadData() {
-  var url = "http://127.0.0.1:8000/gm/log_entries";
 
-  // call the web server asynchronously
-  var request = HttpRequest.getString(url).then(onDataLoaded);
-  //var request = '{"entries": [{"text": "Test entry", "entry_date": "3068-03-21"}, {"text": "2nd test entry", "entry_date": "3068-03-21"}]}';  
-  //onDataLoaded(request);
+  var url;
+  
+  loadConfig('/static/config.yaml').then(
+      (Map config) {
+        url = config["myServerUrl"] + "/gm/log_entries";
+        var request = HttpRequest.getString(url).then(onDataLoaded);
+      }, 
+      onError: (error) => loadConfig().then(
+          (Map config) {
+            url = config["myServerUrl"] + "/gm/log_entries";
+            var request = HttpRequest.getString(url).then(onDataLoaded);
+          }, 
+          onError: (error) => print(error)));
 }
 
 void onDataLoaded(String jsonString) {
