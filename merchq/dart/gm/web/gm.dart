@@ -6,7 +6,7 @@ void main() {
 }
 
 void loadData() {
-  var url = "http://127.0.0.1:8000/gm/log_entries/";
+  var url = "http://127.0.0.1:8000/gm/log_entries";
 
   // call the web server asynchronously
   var request = HttpRequest.getString(url).then(onDataLoaded);

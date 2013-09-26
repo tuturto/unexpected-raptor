@@ -34,5 +34,8 @@ urlpatterns = patterns('',
     url(r'^log_entries/(?P<year>\d{4})/(?P<month>\d{2})/$',
         views.log_entries,
         name='mercs.gm.log_entries'),
+    url(r'^log_entries/$',
+        views.log_entries,
+        name='mercs.gm.log_entries'),
 )
 
