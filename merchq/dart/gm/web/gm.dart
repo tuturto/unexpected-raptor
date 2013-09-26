@@ -3,22 +3,21 @@ import 'dart:json';
 import 'package:dart_config/default_browser.dart';
 
 void main() {
-  loadData();
+  getConfig();
 }
 
-void loadData() {
+void getConfig() {
   
   loadConfig('/static/config.yaml').then(
-      (Map config) {
-        var url = config["myServerUrl"] + "/gm/log_entries";
-        var request = HttpRequest.getString(url).then(onDataLoaded);
-      }, 
-      onError: (error) => loadConfig().then(
-          (Map config) {
-            var url = config["myServerUrl"] + "/gm/log_entries";
-            var request = HttpRequest.getString(url).then(onDataLoaded);
-          }, 
-          onError: (error) => print(error)));
+        (Map config) {
+          loadData(config);
+        }, 
+        onError: (error) => loadConfig().then(loadData));
+}
+
+void loadData(Map config) {
+  var url = config["myServerUrl"] + "/gm/log_entries";
+  var request = HttpRequest.getString(url).then(onDataLoaded);
 }
 
 void onDataLoaded(String jsonString) {
