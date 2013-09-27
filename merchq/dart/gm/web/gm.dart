@@ -1,55 +1,80 @@
 import 'dart:html';
 import 'dart:json';
+import 'dart:async';
 import 'package:dart_config/default_browser.dart';
 
+DateTime currentDate = null;
 DateTime shownDate = null;
 
 void main() {
-  getConfig();
+  
+  Future<Map> config = loadConfig('/static/config.yaml')
+      .catchError((e) => loadConfig());
+  
+  String dateString = query('#current_date').innerHtml;   
+  currentDate = DateTime.parse(dateString);
+  shownDate = currentDate;
+  
+  config.then((Map config) {
+    showDay(config);
+  });
+  
+  config.then((Map config) {
+    query('#yesterday').onClick.listen((e) {
+      shownDate = shownDate.add(const Duration(days: -1));
+      showDay(config);      
+      e.preventDefault();
+    });
+  });
+
+  config.then((Map config) {
+    query('#today').onClick.listen((e) {
+      shownDate = currentDate;
+      showDay(config);
+      e.preventDefault();
+    });
+  });
+  
+  config.then((Map config) {
+    query('#tomorrow').onClick.listen((e) {
+      shownDate = shownDate.add(const Duration(days: 1));
+      showDay(config);
+      e.preventDefault();
+    });
+  });
 }
 
-void getConfig() {
-  
-  loadConfig('/static/config.yaml').then(
-        (Map config) {
-          loadData(config);
-        }, 
-        onError: (error) => loadConfig().then(loadData));
-}
-
-void loadData(Map config) {
-  
-  if (shownDate == null) {
-    shownDate = new DateTime(3068, 3, 20);
-  }
+void showDay(Map config) {
   
   var path = new StringBuffer();
-  path..write("/gm/log_entries/")
-      ..write("${shownDate.year}/")
-      ..write("${shownDate.month}/")
-      ..write("${shownDate.day}/");
+  path..write('/gm/log_entries/')
+      ..write('${shownDate.year}/')
+      ..write('${shownDate.month}/')
+      ..write('${shownDate.day}/');
   
   Uri url = new Uri(scheme: 'http',
-                    host: config["host"],
-                    port: config["port"],
+                    host: config['host'],
+                    port: config['port'],
                     path: path.toString());
     
   var request = HttpRequest.getString(url.toString()).then(onDataLoaded);
+  
 }
 
 void onDataLoaded(String jsonString) {
   Map data = parse(jsonString);
-  var entries = data["entries"];
+  var entries = data['entries'];
   
   TableElement table = query('#log_table');
+  
   
   while(table.rows.length > 1) {
     table.rows[1].remove();
   }
     
   entries.forEach((entry) => addLogEntry(table, 
-      entry["entry_date"], 
-      entry["text"]));
+      entry['entry_date'], 
+      entry['text']));
 }
 
 void addLogEntry(TableElement table, String date, String entry) {

@@ -83,7 +83,14 @@ def log_entries(request, year = None, month = None, day = None):
 
     current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
 
-    log = GMLogEntry.objects.filter(entry_date = current_date)
+    if year:
+        shown_date = datetime.date(year = int(year),
+                                   month = int(month),
+                                   day = int(day))
+    else:
+        shown_date = current_date
+
+    log = GMLogEntry.objects.filter(entry_date = shown_date)
 
     response_data = {}
     response_data['entries'] = []

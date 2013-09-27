@@ -18,7 +18,7 @@
                   <a href="/gm/">GM</a></div>
   <div id="menu2">{% block app_menu %}{% endblock %}</div>
   <div id="sidebar">
-{{current_date.isoformat}} <hr />
+  <div id="current_date">{{current_date.isoformat}}</div><hr />
     {% block sidebar %}{% endblock %}
   </div>
   <div id="main">
