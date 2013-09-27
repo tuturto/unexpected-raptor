@@ -38,7 +38,11 @@ def gm_log(request):
 
     current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
 
-    context = {'current_date': current_date}
+    current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
+    log = GMLogEntry.objects.filter(entry_date = current_date)
+
+    context = {'current_date': current_date,
+               'log': log}
 
     return render(request, 'gm/log.html', context)
 

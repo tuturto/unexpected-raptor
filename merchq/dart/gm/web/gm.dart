@@ -23,11 +23,20 @@ void loadData(Map config) {
 void onDataLoaded(String jsonString) {
   Map data = parse(jsonString);
   var entries = data["entries"];
-  entries.forEach((entry) => addLogEntry(entry["entry_date"], entry["text"]));
+  
+  TableElement table = query('#log_table');
+  
+  while(table.rows.length > 1) {
+    table.rows[1].remove();
+  }
+    
+  entries.forEach((entry) => addLogEntry(table, 
+      entry["entry_date"], 
+      entry["text"]));
 }
 
-void addLogEntry(String date, String entry) {
-  TableElement table = query('#log_table');
+void addLogEntry(TableElement table, String date, String entry) {
+ 
   TableRowElement row = table.insertRow(-1);
   
   row.insertCell(0)
