@@ -34,14 +34,26 @@ def index(request):
 
     return render(request, 'gm/index.html', context)
 
-def gm_log(request):
-
-    current_date = Parameter.objects.filter(parameter_name = 'current date')[0].date_value
+def gm_log(request, year = None, month = None, day = None):
 
     current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
-    log = GMLogEntry.objects.filter(entry_date = current_date)
+
+    if year:
+        shown_date = datetime.date(year = int(year),
+                                   month = int(month),
+                                   day = int(day))
+    else:
+        shown_date = current_date
+
+    yesterday = shown_date - datetime.timedelta(1)
+    tomorrow = shown_date + datetime.timedelta(1)
+
+    log = GMLogEntry.objects.filter(entry_date = shown_date)
 
     context = {'current_date': current_date,
+               'shown_date': shown_date,
+               'yesterday': yesterday,
+               'tomorrow': tomorrow,
                'log': log}
 
     return render(request, 'gm/log.html', context)

@@ -26,9 +26,9 @@
 
 {% block sidebar %}
 
-<a href="xxx">&lt;&lt;</a>&nbsp;&nbsp;
-<a href="xxx">today</a>&nbsp;&nbsp;
-<a href="xxx">&gt;&gt;</a>
+<a href="{% url mercs.gm.log.archive year=yesterday.year, month=yesterday.month, day=yesterday.day %}" id="yesterday">&lt;&lt;</a>&nbsp;&nbsp;
+<a href="{% url mercs.gm.log.archive year=current_date.year, month=current_date.month, day=current_date.day %}" id="today">today</a>&nbsp;&nbsp;
+<a href="{% url mercs.gm.log.archive year=tomorrow.year, month=tomorrow.month, day=tomorrow.day %}" id="tomorrow">&gt;&gt;</a>
 
 {% endblock %}
 
