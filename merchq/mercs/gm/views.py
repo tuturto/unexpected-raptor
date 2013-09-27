@@ -79,7 +79,7 @@ def gm_cycle(request):
 
     return render(request, 'gm/log.html', context)
 
-def log_entries(request, year = None, month = None):
+def log_entries(request, year = None, month = None, day = None):
 
     current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
 

@@ -2,6 +2,8 @@ import 'dart:html';
 import 'dart:json';
 import 'package:dart_config/default_browser.dart';
 
+DateTime shownDate = null;
+
 void main() {
   getConfig();
 }
@@ -16,8 +18,23 @@ void getConfig() {
 }
 
 void loadData(Map config) {
-  var url = config["myServerUrl"] + "/gm/log_entries";
-  var request = HttpRequest.getString(url).then(onDataLoaded);
+  
+  if (shownDate == null) {
+    shownDate = new DateTime(3068, 3, 20);
+  }
+  
+  var path = new StringBuffer();
+  path..write("/gm/log_entries/")
+      ..write("${shownDate.year}/")
+      ..write("${shownDate.month}/")
+      ..write("${shownDate.day}/");
+  
+  Uri url = new Uri(scheme: 'http',
+                    host: config["host"],
+                    port: config["port"],
+                    path: path.toString());
+    
+  var request = HttpRequest.getString(url.toString()).then(onDataLoaded);
 }
 
 void onDataLoaded(String jsonString) {
