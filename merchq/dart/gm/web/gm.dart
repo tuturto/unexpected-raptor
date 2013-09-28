@@ -5,43 +5,43 @@ import 'package:dart_config/default_browser.dart';
 
 DateTime currentDate = null;
 DateTime shownDate = null;
+Map config = null;
 
 void main() {
-  Future<Map> config = loadConfig('/static/config.yaml')
-      .catchError((e) => loadConfig());
+  
+  loadConfig('/static/config.yaml')
+    .catchError((e) => loadConfig()).then((Map c) {
+      config = c;
+      showDay();
+  });
 
   String dateString = query('#current_date').innerHtml;   
   currentDate = DateTime.parse(dateString);
-  shownDate = currentDate;
+  shownDate = currentDate;  
+  registerListeners();
+}
 
-  // why would the code crash without this?
-  Future.wait([config]);
-  
-  config.then((Map config) {
-    showDay(config);
+void registerListeners() {
+  query('#yesterday').onClick.listen((e) {
+    shownDate = shownDate.add(const Duration(days: -1));
+    showDay();      
+    e.preventDefault();
+  });   
     
-    query('#yesterday').onClick.listen((e) {
-      shownDate = shownDate.add(const Duration(days: -1));
-      showDay(config);      
-      e.preventDefault();
-    });   
+  query('#today').onClick.listen((e) {
+    shownDate = currentDate;
+    showDay();
+    e.preventDefault();
+  });
     
-    query('#today').onClick.listen((e) {
-      shownDate = currentDate;
-      showDay(config);
-      e.preventDefault();
-    });
-    
-    query('#tomorrow').onClick.listen((e) {
-      shownDate = shownDate.add(const Duration(days: 1));
-      showDay(config);
-      e.preventDefault();
-    });
-    
+  query('#tomorrow').onClick.listen((e) {
+    shownDate = shownDate.add(const Duration(days: 1));
+    showDay();
+    e.preventDefault();
   });
 }
 
-void showDay(Map config) {
+void showDay() {
   var path = new StringBuffer();
   path..write('/gm/log_entries/')
       ..write('${shownDate.year}/')
