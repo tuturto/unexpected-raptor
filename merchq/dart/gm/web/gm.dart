@@ -7,45 +7,41 @@ DateTime currentDate = null;
 DateTime shownDate = null;
 
 void main() {
-  
   Future<Map> config = loadConfig('/static/config.yaml')
       .catchError((e) => loadConfig());
-  
+
   String dateString = query('#current_date').innerHtml;   
   currentDate = DateTime.parse(dateString);
   shownDate = currentDate;
+
+  // why would the code crash without this?
+  Future.wait([config]);
   
   config.then((Map config) {
     showDay(config);
-  });
-  
-  config.then((Map config) {
+    
     query('#yesterday').onClick.listen((e) {
       shownDate = shownDate.add(const Duration(days: -1));
       showDay(config);      
       e.preventDefault();
-    });
-  });
-
-  config.then((Map config) {
+    });   
+    
     query('#today').onClick.listen((e) {
       shownDate = currentDate;
       showDay(config);
       e.preventDefault();
     });
-  });
-  
-  config.then((Map config) {
+    
     query('#tomorrow').onClick.listen((e) {
       shownDate = shownDate.add(const Duration(days: 1));
       showDay(config);
       e.preventDefault();
     });
+    
   });
 }
 
 void showDay(Map config) {
-  
   var path = new StringBuffer();
   path..write('/gm/log_entries/')
       ..write('${shownDate.year}/')
@@ -78,7 +74,6 @@ void onDataLoaded(String jsonString) {
 }
 
 void addLogEntry(TableElement table, String date, String entry) {
- 
   TableRowElement row = table.insertRow(-1);
   
   row.insertCell(0)
