@@ -63,6 +63,7 @@ def gm_cycle(request):
     param = Parameter.objects.filter(parameter_name = 'current date')[0]
     param.date_value = param.date_value + datetime.timedelta(1)
     param.save()
+    current_date = param.date_value
 
     forces = Force.objects.all()
 
@@ -71,11 +72,18 @@ def gm_cycle(request):
 
     log = GMLogEntry.objects.filter(entry_date = param.date_value)
 
+    yesterday = current_date - datetime.timedelta(1)
+    tomorrow = current_date + datetime.timedelta(1)
+
     context = {'year': param.date_value.year,
                'month': param.date_value.month,
                'day': param.date_value.day,
                'log': log,
-               'current_date': param.date_value}
+               'current_date': current_date,
+               'yesterday': yesterday,
+               'tomorrow': tomorrow,}
+
+    print context
 
     return render(request, 'gm/log.html', context)
 
