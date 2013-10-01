@@ -4,6 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href=style.css>
 
+<link rel="import" href="elements/hello_world.html">
+<script src="packages/polymer/boot.js"></script>
+
 </head>
 <body>
 <div id="container">
@@ -27,6 +30,9 @@
     
   </div>
   <div id="main">
+    
+    <hello-world></hello-world>
+    
     <table id="log_table">
       <tr>
         <th></th><th></th><th></th>
@@ -41,8 +47,8 @@
   <div id="footer"> &copy;2013 Tuukka Turto &nbsp;<span class="separator">|</span>&nbsp; Design by <a href="http://www.realitysoftware.ca">Reality Software</a> </div>
 </div>
 
-<script type="application/dart" src="gm.dart"></script>
-<script src="packages/browser/dart.js"></script>
+<!-- <script type="application/dart" src="gm.dart"></script>
+<script src="packages/browser/dart.js"></script> -->
 
 </body>
 </html>
