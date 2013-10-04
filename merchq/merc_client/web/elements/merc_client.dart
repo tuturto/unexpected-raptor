@@ -1,7 +1,7 @@
-library hello_world;
+library merc_client;
 
 import 'package:polymer/polymer.dart';
 
-@CustomTag('hello-world')
+@CustomTag('merc-client')
 class HelloWorldElement extends PolymerElement {
 }
