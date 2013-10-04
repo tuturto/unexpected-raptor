@@ -2,3 +2,4 @@ name: merc_client
 description: A sample web application
 dependencies:
   browser: any
+  polymer: 0.7.6

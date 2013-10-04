@@ -1,3 +1,5 @@
+library merc_client;
+
 import 'dart:html';
 
 void main() {
