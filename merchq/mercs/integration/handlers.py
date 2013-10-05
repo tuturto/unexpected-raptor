@@ -17,19 +17,21 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
-from piston.resource import Resource
+from piston.handler import BaseHandler
+from mercs.gm.models import GMLogEntry
 
-from mercs.integration import views
-from mercs.integration.handlers import GMLogEntryHandler
+class GMLogEntryHandler(BaseHandler):
+    allowed_methods = ('GET',)
+    model = GMLogEntry
 
-gmlog_handler = Resource(GMLogEntryHandler)
+    fields = ('id', 'text', 'entry_date')
 
-urlpatterns = patterns('',
-    url(r'^current_date/$',
-        views.current_date),
-   url(r'^logs/(?P<post_slug>[^/]+)/', gmlog_handler),
-   url(r'^logs/', gmlog_handler),
-)
+    def read(self, request, id=None):
 
+        base = GMLogEntry.objects
+        
+        if id:
+            return base.get(pk=id)
+        else:
+            return base.all()
 

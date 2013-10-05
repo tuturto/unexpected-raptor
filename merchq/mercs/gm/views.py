@@ -83,8 +83,6 @@ def gm_cycle(request):
                'yesterday': yesterday,
                'tomorrow': tomorrow,}
 
-    print context
-
     return render(request, 'gm/log.html', context)
 
 def log_entries(request, year = None, month = None, day = None):
