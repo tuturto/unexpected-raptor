@@ -25,7 +25,8 @@ from rest_framework import generics
 
 from mercs.common.models import Parameter
 from mercs.gm.models import GMLogEntry
-from mercs.integration.serializers import GMLogEntrySerializer
+from mercs.forces.models import Force
+from mercs.integration.serializers import GMLogEntrySerializer, ForceSerializer
 
 def current_date(request):
 
@@ -36,6 +37,16 @@ def current_date(request):
    
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
+
+class ForceList(generics.ListAPIView):
+
+    serializer_class = ForceSerializer
+
+    def get_queryset(self):
+
+        queryset = Force.objects.all()        
+
+        return queryset
 
 class GMLogEntryList(generics.ListAPIView):
     

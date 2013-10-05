@@ -19,9 +19,21 @@
 
 from rest_framework import serializers
 from mercs.gm.models import GMLogEntry
+from mercs.forces.models import Force
+
+class ForceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Force
+        fields = ('id', 'force_name')
 
 class GMLogEntrySerializer(serializers.ModelSerializer):
+
+    force = serializers.HyperlinkedRelatedField(many=False, 
+                                                read_only=True,
+                                                view_name='mercs.integration.forces')
+
     class Meta:
         model = GMLogEntry
-        fields = ('id', 'entry_date', 'text')
+        fields = ('id', 'entry_date', 'text', 'force')
 

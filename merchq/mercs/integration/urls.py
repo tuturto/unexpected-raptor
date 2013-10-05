@@ -26,6 +26,9 @@ urlpatterns = patterns('',
         mercs.integration.views.current_date),
     url(r'^logs/$',
         mercs.integration.views.GMLogEntryList.as_view()),
+    url(r'^forces/$',
+        mercs.integration.views.ForceList.as_view(),
+        name = 'mercs.integration.forces'),
 )
 
 
