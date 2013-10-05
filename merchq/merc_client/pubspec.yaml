@@ -2,4 +2,5 @@ name: merc_client
 description: A sample web application
 dependencies:
   browser: any
+  dart_config: any
   polymer: 0.7.6
