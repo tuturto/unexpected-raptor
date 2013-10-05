@@ -29,10 +29,6 @@ class ForceSerializer(serializers.ModelSerializer):
 
 class GMLogEntrySerializer(serializers.ModelSerializer):
 
-    force = serializers.HyperlinkedRelatedField(many=False, 
-                                                read_only=True,
-                                                view_name='mercs.integration.forces')
-
     class Meta:
         model = GMLogEntry
         fields = ('id', 'entry_date', 'text', 'force')

@@ -24,11 +24,17 @@ import mercs.integration.views
 urlpatterns = patterns('',
     url(r'^current_date/$',
         mercs.integration.views.current_date),
-    url(r'^logs/$',
-        mercs.integration.views.GMLogEntryList.as_view()),
     url(r'^forces/$',
         mercs.integration.views.ForceList.as_view(),
-        name = 'mercs.integration.forces'),
+        name = 'forces-list'),
+    url(r'^forces/(?P<id>\d+)/$',
+        mercs.integration.views.ForceDetails.as_view(),
+        name = 'force-details'),
+    url(r'^logs/$',
+        mercs.integration.views.GMLogEntryList.as_view(),
+        name = 'log-list'),
+    url(r'^logs/(?P<id>\d+)/$',
+        mercs.integration.views.GMLogEntryDetails.as_view(),
+        name = 'log-details'),
 )
-
 

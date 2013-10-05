@@ -48,6 +48,18 @@ class ForceList(generics.ListAPIView):
 
         return queryset
 
+class ForceDetails(generics.ListAPIView):
+
+    serializer_class = ForceSerializer
+
+    def get_queryset(self):
+
+        id = self.kwargs['id']
+        queryset = Force.objects.all()
+        queryset = queryset.filter(id = id)
+
+        return queryset
+
 class GMLogEntryList(generics.ListAPIView):
     
     serializer_class = GMLogEntrySerializer
@@ -59,6 +71,18 @@ class GMLogEntryList(generics.ListAPIView):
 
         if date is not None:
             queryset = queryset.filter(entry_date=date)
+
+        return queryset
+
+class GMLogEntryDetails(generics.ListAPIView):
+    
+    serializer_class = GMLogEntrySerializer
+
+    def get_queryset(self):
+
+        id = self.kwargs['id']
+        queryset = GMLogEntry.objects.all()        
+        queryset = queryset.filter(id = id)
 
         return queryset
 
