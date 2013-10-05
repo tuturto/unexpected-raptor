@@ -18,17 +18,36 @@
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.http import HttpResponse
-from mercs.common.models import Parameter
 import datetime
 import json
+from rest_framework import mixins
+from rest_framework import generics
+
+from mercs.common.models import Parameter
+from mercs.gm.models import GMLogEntry
+from mercs.integration.serializers import GMLogEntrySerializer
 
 def current_date(request):
 
     current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
 
-
     response_data = {}
     response_data['current_date'] = str(current_date.isoformat())
    
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+class GMLogEntryList(generics.ListAPIView):
+    
+    serializer_class = GMLogEntrySerializer
+
+    def get_queryset(self):
+
+        queryset = GMLogEntry.objects.all()        
+        date = self.request.QUERY_PARAMS.get('date', None)
+
+        if date is not None:
+            queryset = queryset.filter(entry_date=date)
+
+        return queryset
 

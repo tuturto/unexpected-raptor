@@ -17,15 +17,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with unexpected-raptor.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url
+from rest_framework import serializers
+from mercs.gm.models import GMLogEntry
 
-import mercs.integration.views 
-
-urlpatterns = patterns('',
-    url(r'^current_date/$',
-        mercs.integration.views.current_date),
-    url(r'^logs/$',
-        mercs.integration.views.GMLogEntryList.as_view()),
-)
-
+class GMLogEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GMLogEntry
+        fields = ('id', 'entry_date', 'text')
 
