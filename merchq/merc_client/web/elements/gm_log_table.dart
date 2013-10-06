@@ -13,13 +13,19 @@ class LogEntry {
 @CustomTag('gm-log-table')
 class GMLogTable extends PolymerElement with ObservableMixin {
   
+  //final ObservableList logEntries = toObservable([]);
   @observable List logEntries = [];
   
   void addEntry(date, text) {
-    logEntries.add(new LogEntry(date, text));
+    //TODO: ugly hack, because I don't know how to get template to notice the change
+    List newEntries = new List();
+    newEntries.addAll(logEntries);
+    newEntries.add(new LogEntry(date, text));
+    
+    logEntries = newEntries;
   }
   
   void clear() {
-    logEntries.clear();
+    logEntries = [];
   }
 }
