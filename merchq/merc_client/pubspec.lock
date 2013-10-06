@@ -29,6 +29,10 @@ packages:
     description: dart_config
     source: hosted
     version: "0.5.0"
+  fancy_syntax:
+    description: fancy_syntax
+    source: hosted
+    version: "0.0.7"
   html5lib:
     description: html5lib
     source: hosted

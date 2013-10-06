@@ -1,7 +1,10 @@
 <polymer-element name="gm-log">
+  <link rel="import" href="gm_log_table.html">
   <template>
     <div>
-    GM Log goes here
+
+    <div is="gm-log-table" id="logEntries"></div>
+
     </div>  
   </template>
   <script type="application/dart" src="gm_log.dart"></script>

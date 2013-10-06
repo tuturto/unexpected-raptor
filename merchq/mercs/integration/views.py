@@ -70,7 +70,11 @@ class GMLogEntryList(generics.ListAPIView):
         date = self.request.QUERY_PARAMS.get('date', None)
 
         if date is not None:
-            queryset = queryset.filter(entry_date=date)
+            if date == 'current':
+                current_date = Parameter.objects.get(parameter_name = 'current date').date_value
+                queryset = queryset.filter(entry_date=current_date)
+            else:
+                queryset = queryset.filter(entry_date=date)
 
         return queryset
 
