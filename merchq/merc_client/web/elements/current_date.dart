@@ -34,7 +34,7 @@ class CurrentDateElement extends PolymerElement {
     Map data = parse(jsonString);
     var entry = data['current_date'];
   
-    DivElement div = query('#date_section');
+    DivElement div = shadowRoot.query('#date_section');
     div.innerHtml = entry;  
   }
 }

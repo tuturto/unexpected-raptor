@@ -11,8 +11,8 @@ class MercClientElement extends PolymerElement {
   Map config = null;
   
   void startUp(Map config) {
-    this.config = config;
-    CurrentDateElement dateElement = query('#datefield');
+    this.config = config;    
+    CurrentDateElement dateElement = shadowRoot.query('#datefield').xtag;
     dateElement.startUp(config);
   }
 }
