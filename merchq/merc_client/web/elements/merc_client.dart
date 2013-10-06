@@ -15,5 +15,9 @@ class MercClientElement extends PolymerElement {
     var dateElement = createElement('current-date');
     shadowRoot.query('#navbar').children.add(dateElement);
     dateElement.xtag.startUp(config);
+    
+    var gmLogElement = createElement('gm-log');
+    shadowRoot.query('#appcontent').children.add(gmLogElement);
+    gmLogElement.xtag.startUp(config);
   }
 }
