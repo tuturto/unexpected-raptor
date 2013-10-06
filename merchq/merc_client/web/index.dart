@@ -1,7 +1,6 @@
-library merc_client;
+library merc_main;
 
 import 'dart:html';
-//import 'dart:json';
 import 'dart:async';
 import 'package:dart_config/default_browser.dart';
 import 'elements/merc_client.dart';

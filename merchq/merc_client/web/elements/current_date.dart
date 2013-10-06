@@ -6,11 +6,13 @@ import 'dart:async';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('current-date')
-class CurrentDateElement extends PolymerElement {
+class CurrentDateElement extends PolymerElement 
+    with ObservableMixin{
   
   bool get applyAuthorStyles => true;
 
   Map config = null;
+  @observable String displayedDate;
   
   void startUp(Map config) {
     this.config = config;
@@ -33,8 +35,7 @@ class CurrentDateElement extends PolymerElement {
   void onDataLoaded(String jsonString) {
     Map data = parse(jsonString);
     var entry = data['current_date'];
-  
-    DivElement div = shadowRoot.query('#date_section');
-    div.innerHtml = entry;  
+    
+    displayedDate = entry;
   }
 }
