@@ -1,6 +1,7 @@
 library merc_client;
 
 import 'package:polymer/polymer.dart';
+import 'current_date.dart';
 
 @CustomTag('merc-client')
 class MercClientElement extends PolymerElement {
@@ -9,7 +10,9 @@ class MercClientElement extends PolymerElement {
 
   Map config = null;
   
-  void setConfig(Map config) {
-     this.config = config;
+  void startUp(Map config) {
+    this.config = config;
+    CurrentDateElement dateElement = query('#datefield');
+    dateElement.startUp(config);
   }
 }

@@ -15,6 +15,7 @@ void main() {
       config = c;
       Element elem = query('#client');
       MercClientElement myElement = elem.xtag;
-      myElement.setConfig(config);
+      
+      myElement.startUp(config);
   });
 }
