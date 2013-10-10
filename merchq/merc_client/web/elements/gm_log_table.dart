@@ -16,6 +16,8 @@ class GMLogTable extends PolymerElement with ObservableMixin {
   //final ObservableList logEntries = toObservable([]);
   @observable List logEntries = [];
   
+  bool get applyAuthorStyles => true;
+  
   void addEntry(date, text) {
     //TODO: ugly hack, because I don't know how to get template to notice the change
     List newEntries = new List();

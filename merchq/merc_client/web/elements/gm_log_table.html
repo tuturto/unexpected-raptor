@@ -2,19 +2,21 @@
 <html>
   <body>    
     <polymer-element name="gm-log-table" extends="div" apply-author-styles>            
-      <template>     
-        <table>
-          <tbody>
-            <tr>
-              <th align="left">Date</th>
-              <th align="left">Entry</th>
-            </tr>
-            <tr template repeat="{{logEntries}}">
-              <td>{{entryDate}}</td>
-              <td>{{text}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <template>   
+        <div class="table-responsive">  
+          <table class="table table-condensed table-hover">
+            <tbody>
+              <tr>
+                <th align="left">Date</th>
+                <th align="left">Entry</th>
+              </tr>
+              <tr template repeat="{{logEntries}}">
+                <td>{{entryDate}}</td>
+                <td>{{text}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </template>      
       <script type="application/dart" src="gm_log_table.dart"></script>
     </polymer-element>   
