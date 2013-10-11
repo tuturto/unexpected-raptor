@@ -1,0 +1,28 @@
+body  {
+  background: #F4F4F4;
+  margin: 0;
+}
+
+#logo {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#main_menu {
+  color: #c5d6db;
+  background-color: #3b7687; 
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#appcontent {
+  color: #444444;
+  font-family: "Georgia";
+  padding-top: 10px;
+}
+
+#navbar {
+  color: #444444;
+  font-family: "Georgia";
+  padding-top: 10px;
+}
