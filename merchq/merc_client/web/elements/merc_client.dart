@@ -30,8 +30,10 @@ class MercClientElement extends PolymerElement {
   }
   
   void show_gm_cycle() {
+    var gmLogElement = createElement('gm-cycle');
     shadowRoot.query('#appcontent')
-      ..children.clear();    
+      ..children.clear()
+      ..children.add(gmLogElement);   
   }
   
   void show_gm_logs() {   
