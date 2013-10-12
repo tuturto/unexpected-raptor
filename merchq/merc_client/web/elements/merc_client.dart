@@ -33,7 +33,8 @@ class MercClientElement extends PolymerElement {
     var gmLogElement = createElement('gm-cycle');
     shadowRoot.query('#appcontent')
       ..children.clear()
-      ..children.add(gmLogElement);   
+      ..children.add(gmLogElement);
+    gmLogElement.xtag.startUp(config);
   }
   
   void show_gm_logs() {   
