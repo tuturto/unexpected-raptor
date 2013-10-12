@@ -10,9 +10,14 @@ body  {
 
 #main_menu {
   color: #c5d6db;
-  background-color: #3b7687; 
+  background-color: #3b7687;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#main_menu a {
+  color: #c5d6db;
+  text-decoration: none; 
 }
 
 #appcontent {

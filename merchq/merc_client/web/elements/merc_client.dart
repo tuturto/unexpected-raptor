@@ -12,23 +12,33 @@ class MercClientElement extends PolymerElement {
   void startUp(Map config) {
     this.config = config;
 
-    show_gm_application();
-  }
-  
-  void show_gm_application() {
-    shadowRoot.query('#app_menu1').setInnerHtml('Logs');
-    shadowRoot.query('#app_menu2').setInnerHtml('Cycle');
-    
-    show_gm_logs();
-  }
-  
-  void show_gm_logs() {
     var dateElement = createElement('current-date');
     shadowRoot.query('#navbar').children.add(dateElement);
     dateElement.xtag.startUp(config);
     
+    show_gm_application();
+  }
+  
+  void show_gm_application() {
+    shadowRoot.query('#app_menu1')
+      ..setInnerHtml('<a href="#gm_logs">Logs</a>')
+      ..onClick.listen((e) => show_gm_logs());
+    
+    shadowRoot.query('#app_menu2')
+      ..setInnerHtml('<a href="#gm_cycle">Cycle</a>')
+      ..onClick.listen((e) => show_gm_cycle());
+  }
+  
+  void show_gm_cycle() {
+    shadowRoot.query('#appcontent')
+      ..children.clear();    
+  }
+  
+  void show_gm_logs() {   
     var gmLogElement = createElement('gm-log');
-    shadowRoot.query('#appcontent').children.add(gmLogElement);
+    shadowRoot.query('#appcontent')
+      ..children.clear()
+      ..children.add(gmLogElement);
     gmLogElement.xtag.startUp(config);    
   }
 }
