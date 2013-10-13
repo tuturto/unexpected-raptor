@@ -1,6 +1,6 @@
 import 'package:polymer/polymer.dart';
 import 'dart:html';
-import 'dart:json';
+import 'dart:convert';
 import 'dart:async';
 
 @CustomTag('gm-cycle')
@@ -21,24 +21,27 @@ class MyExample extends PolymerElement
   }
   
   void cycle() {
-  
+
+    var path = new StringBuffer();
+    path
+      ..write(config['servicePath'])
+      ..write('cycle/');
+    
     Uri url = new Uri(scheme: 'http',
                       host: config['host'],
                       port: config['port'],
-                      path: 'cycle/');
+                      path: path.toString());
     
     int days = int.parse(daysToAdvance);
-    String jsonData = '{"days":$days}';
-    
-    var request = HttpRequest.request(url.toString(),
-        method: 'POST',
-        sendData: jsonData).then(onCycleCompleted);
+
+    var request = new HttpRequest();
+    request.open('POST', url.toString());
+    request.onLoadEnd.listen((e) => onCycleCompleted);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(JSON.encode({'days': days}));
   }
   
   void onCycleCompleted(HttpRequest request) {
-    if (request.status == 200) {
-      Map data = parse(request.responseText);
-      print(data);      
-    }
+    
   }
 }

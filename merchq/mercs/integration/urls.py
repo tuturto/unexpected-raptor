@@ -36,5 +36,8 @@ urlpatterns = patterns('',
     url(r'^logs/(?P<id>\d+)/$',
         mercs.integration.views.GMLogEntryDetails.as_view(),
         name = 'log-details'),
+    url(r'^cycle/$',
+        mercs.integration.views.cycle,
+        name = 'cycle'),
 )
 

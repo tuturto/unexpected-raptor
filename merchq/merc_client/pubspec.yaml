@@ -4,4 +4,4 @@ dependencies:
   browser: any
   dart_config: any
   fancy_syntax: any
-  polymer: 0.7.6
+  polymer: 0.7.6+4

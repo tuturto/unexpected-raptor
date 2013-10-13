@@ -20,8 +20,9 @@
 from django.http import HttpResponse
 import datetime
 import json
-from rest_framework import mixins
-from rest_framework import generics
+from rest_framework import mixins, generics, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from mercs.common.models import Parameter
 from mercs.gm.models import GMLogEntry
@@ -89,4 +90,10 @@ class GMLogEntryDetails(generics.ListAPIView):
         queryset = queryset.filter(id = id)
 
         return queryset
+
+@api_view(['POST'])
+def cycle(request):
+    if request.method == 'POST':
+        print request.DATA
+        return Response('', status=status.HTTP_201_CREATED)
 
