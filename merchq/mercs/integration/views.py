@@ -27,6 +27,7 @@ from rest_framework.response import Response
 
 from mercs.common.models import Parameter
 from mercs.gm.models import GMLogEntry
+from mercs.gm.cycle import run_cycle
 from mercs.forces.models import Force
 from mercs.integration.serializers import GMLogEntrySerializer, ForceSerializer
 
@@ -94,6 +95,17 @@ class GMLogEntryDetails(generics.ListAPIView):
 @api_view(['POST'])
 def cycle(request):
     if request.method == 'POST':
-        
+        days_to_advance = int(request.DATA['days'])
+
+        param = Parameter.objects.filter(parameter_name = 'current date')[0]
+        param.date_value = param.date_value + datetime.timedelta(1)
+        param.save()
+        current_date = param.date_value
+
+        forces = Force.objects.all()
+
+        for force in forces:
+            run_cycle(force)
+
         return Response('', status=status.HTTP_200_OK)
 
