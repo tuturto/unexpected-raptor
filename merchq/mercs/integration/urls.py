@@ -23,7 +23,7 @@ import mercs.integration.views
 
 urlpatterns = patterns('',
     url(r'^current_date/$',
-        mercs.integration.views.current_date),
+        mercs.integration.views.CurrentDateView.as_view()),
     url(r'^forces/$',
         mercs.integration.views.ForceList.as_view(),
         name = 'forces-list'),

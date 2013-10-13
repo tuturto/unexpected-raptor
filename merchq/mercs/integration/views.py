@@ -21,6 +21,7 @@ from django.http import HttpResponse
 import datetime
 import json
 from rest_framework import mixins, generics, status
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -29,15 +30,14 @@ from mercs.gm.models import GMLogEntry
 from mercs.forces.models import Force
 from mercs.integration.serializers import GMLogEntrySerializer, ForceSerializer
 
-def current_date(request):
+class CurrentDateView(APIView):
 
-    current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
+    def get(self, request, *args, **kw):
 
-    response_data = {}
-    response_data['current_date'] = str(current_date.isoformat())
-   
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
-
+        current_date = Parameter.objects.get(parameter_name = 'current date').date_value   
+        result = {'current_date': str(current_date.isoformat())}
+        response = Response(result, status=status.HTTP_200_OK)
+        return response
 
 class ForceList(generics.ListAPIView):
 
@@ -94,6 +94,6 @@ class GMLogEntryDetails(generics.ListAPIView):
 @api_view(['POST'])
 def cycle(request):
     if request.method == 'POST':
-        print request.DATA
-        return Response('', status=status.HTTP_201_CREATED)
+        
+        return Response('', status=status.HTTP_200_OK)
 
